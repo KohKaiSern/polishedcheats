@@ -10,7 +10,9 @@ export const getItems = () => {
     const data = fs.readFileSync(path.join(__dirname, '..', 'public', 'attributes.asm'), 'utf8').trim().split('\n');
 
     //Get all items and item types
-    let items = {};
+    let items = [];
+    //Keep track of each item's index
+    let index = 0;
     for (let i = 0; i < data.length; i++) {
         if (data[i].trim().startsWith(';') && data[i + 1].trim().startsWith('item_attribute')) {
             let item = data[i].trim().slice(2) 
@@ -25,8 +27,9 @@ export const getItems = () => {
                 }
                 item = item.slice(0, j) + item[j].toLowerCase() + item.slice(j + 1);
             }
-            
-            items[item] = itemType;
+            //Insertion
+            items[index] = {item : itemType};
+            index++;
 
             //Skips an extra line, since each data point is two lines long
             i++;

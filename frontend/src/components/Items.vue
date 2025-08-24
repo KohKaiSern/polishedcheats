@@ -18,6 +18,8 @@ onMounted(() => {
   fetchItems();
 });
 
+//Parse items into an array of [items] for Select to loop o
+
 const getItemCode = (item) => {
   //Retrieve the right address
   return;

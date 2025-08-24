@@ -10,24 +10,6 @@ import { getMoves } from './getMoves.js';
 //Middleware
 app.use(cors());
 
-// const allowedOrigins = [
-//   'https://polishedcheats.vercel.app'
-// ];
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if(!origin) return callback(null, true);
-//     if(allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     }else {
-//       callback(new Error('Not Allowd by CORS'));
-//     }
-//   },
-//   credentials: true,
-//   methods: ['GET','POST','PUT','DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization']
-// };
-// app.use(cors(corsOptions));
-
 // Home Route
 app.get('/', (req, res) => {
   res.send('Server is functioning!')
@@ -40,7 +22,7 @@ app.get('/api/addresses', (req, res) => {
 
 //Items Route
 app.get('/api/items', (req, res) => {
-  res.json(getItems());
+  res.send(getItems());
 })
 
 //Names Route
