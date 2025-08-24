@@ -26,7 +26,7 @@ export const getItems = () => {
                 item = item.slice(0, j) + item[j].toLowerCase() + item.slice(j + 1);
             }
             //Insertion
-            items.push({ item : itemType });
+            items.push({ [item] : itemType });
 
             //Skips an extra line, since each data point is two lines long
             i++;
