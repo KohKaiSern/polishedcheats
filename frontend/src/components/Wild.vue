@@ -87,7 +87,7 @@ const forms =
     "Grimer": ["Plain", "Alolan"],
     "Muk": ["Plain", "Alolan"],
     "Voltorb": ["Plain", "Hisuian"],
-    "Electrode": ["Plain, Hisuian"],
+    "Electrode": ["Plain", "Hisuian"],
     "Vulpix": ["Plain", "Alolan"],
     "Ninetails": ["Plain", "Alolan"],
     "Growlithe": ["Plain", "Hisuian"],
@@ -179,8 +179,10 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
   <Card>
     <template #title>Wild Pokemon</template>
     <template #content>
-      <Select class="mt-2 mb-5 mr-2" v-if="loaded" v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
-      <Select class="mb-5" v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mb-5">
+      <Select v-if="loaded" v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
+      <Select v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
+      </div>
       <p class="mb-5" v-if="selectedPokemon">Your code for {{ selectedPokemon }} is: {{ getPokemonCode(selectedPokemon, selectedForm) }}</p>
       <p class="mb-5" v-else>Please choose a Pokemon.</p>
       <p>This code forces all Wild Encounters to be of the chosen Pokemon.
