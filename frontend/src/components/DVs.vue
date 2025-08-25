@@ -65,7 +65,7 @@ const getHPType = (selectedDVs) => {
   <Card>
     <template #title>Determinant Values</template>
     <template #content>
-      <div class="grid grid-cols-6 gap-2 mt-2 mb-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mt-2 mb-5">
       <IftaLabel>
         <InputNumber v-model="selectedDVs[0]" inputId="hp" showButtons :min="0" :max="15" fluid />
         <label for="hp">HP</label>
