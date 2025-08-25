@@ -94,7 +94,8 @@ const getHPType = (selectedDVs) => {
       <p class="mb-5" v-if="loaded">Your code for the Determinant Values is: {{ getDVCode(selectedDVs) }}</p>
       <p class="mb-5">The Hidden Power Type of your Pokemon will be: {{ getHPType(selectedDVs) }}</p>
       <p>This code modifies the Determinant Values of your Pokemon. As a side-effect, this will also affect the type of the Pokemon's Hidden Power move.<br>
-        If you have Perfect Stats turned on in your save settings, this will only affect your Hidden Power Type.
+        If you have Perfect Stats turned on in your save settings, this will only affect your Hidden Power Type. <br>
+        Should you wish to change the DVs of the other Pokemon in your party, simply swap the party order to place them first.
       </p>
     </template>
   </Card>
