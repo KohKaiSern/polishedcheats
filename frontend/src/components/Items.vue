@@ -67,9 +67,9 @@ const getItemCode = (selectedItem) => {
   <Card>
     <template #title>Items</template>
     <template #content>
-      <Select v-if="loaded" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
-      <p v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>
-      <p v-else>Please choose an item.</p>
+      <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
+      <p class="mb-5" v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>
+      <p class="mb-5" v-else>Please choose an item.</p>
       <p>This code replaces the first item in the relevant bag slot with 99 of the chosen item. <br>
         Warning! If the relevant bag slot is empty, this code will corrupt your save!
       </p>

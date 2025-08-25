@@ -179,10 +179,10 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
   <Card>
     <template #title>Wild Pokemon</template>
     <template #content>
-      <Select v-if="loaded" v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
+      <Select class="mt-2 mb-5 mr-2" v-if="loaded" v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
       <Select v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
-      <p v-if="selectedPokemon">Your code for {{ selectedPokemon }} is: {{ getPokemonCode(selectedPokemon, selectedForm) }}</p>
-      <p v-else>Please choose a Pokemon.</p>
+      <p class="mb-5" v-if="selectedPokemon">Your code for {{ selectedPokemon }} is: {{ getPokemonCode(selectedPokemon, selectedForm) }}</p>
+      <p class="mb-5" v-else>Please choose a Pokemon.</p>
       <p>This code forces all Wild Encounters to be of the chosen Pokemon.
       </p>
     </template>
