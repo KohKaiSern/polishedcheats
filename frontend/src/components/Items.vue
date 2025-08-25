@@ -28,21 +28,25 @@ const getItemList = () => {
   })
 }
 
-const getItemCode = (item) => {
+const getItemCode = (selectedItem) => {
   //Retrieve the right address
   let address = "";
   let cheatValue = "";
   items.value.forEach((item) => {
-    if (Object.keys(item)[0] === selectedItem.value) {
-      if (item[selectedItem.value] === "Ball") {
+    if (Object.keys(item)[0] === selectedItem) {
+      if (item[selectedItem] === "Ball") {
         address = addresses.value["wBalls"]
         cheatValue = (items.value.indexOf(item) + 1).toString(16)
       }
-      else if (item[selectedItem.value] === "Medicine") {
+      else if (item[selectedItem] === "Medicine") {
         address = addresses.value["wMedicine"]
         cheatValue = (items.value.indexOf(item) + 1).toString(16)
       }
-      else if (item[selectedItem.value] === "Item") {
+      else if (item[selectedItem] === "Berries") {
+        address = addresses.value["wBerries"]
+        cheatValue = (items.value.indexOf(item) + 1).toString(16)
+      }
+      else if (item[selectedItem] === "Item") {
         address = addresses.value["wItems"]
         cheatValue = (items.value.indexOf(item) + 1).toString(16)
       }
@@ -64,7 +68,7 @@ const getItemCode = (item) => {
     <template #title>Items</template>
     <template #content>
       <Select v-if="loaded" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
-      <p v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode() }}</p>
+      <p v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>
       <p v-else>Please choose an item.</p>
       <p>This code replaces the first item in the relevant bag slot with 99 of the chosen item. <br>
         Warning! If the relevant bag slot is empty, this code will corrupt your save!
