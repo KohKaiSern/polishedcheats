@@ -2,11 +2,12 @@
 import { ref } from 'vue'
 import Items from './components/Items.vue'
 import Wild from './components/Wild.vue'
+import DVs from './components/DVs.vue'
 import Select from 'primevue/select'
 import Divider from 'primevue/divider';
 
 const selectedCheat = ref(null)
-const cheats = ["Item Modifier", "Wild Pokemon Modifier"];
+const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier"];
 
 </script>
 
@@ -31,8 +32,9 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier"];
 
   <Divider />
 
-  <Wild class="mt-7 ml-5 mr-5 mb-5" v-if="selectedCheat==='Wild Pokemon Modifier'" />
-  <Items class="mt-7 ml-5 mr-5 mb-5" v-if="selectedCheat==='Item Modifier'"/>
+  <Wild class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Wild Pokemon Modifier'" />
+  <Items class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Item Modifier'"/>
+  <DVs class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='DV Modifier'"/>
 </template>
 
 <style scoped></style>
