@@ -12,10 +12,8 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier"];
 
 <template>
   <h1 class="text-3xl font-bold mt-5 ml-5 mb-3 mr-5">Polished Cheats v3.1.1</h1>
-  <h2 class="text-2xl italic ml-5 mr-5">This website is currently in a BETA state. Do not expect the codes to work - the website is under heavy testing.</h2>
-  <br>
+  <h2 class="text-2xl italic mt-5 mb-5 ml-5 mr-5">This website is currently in a <span class="text-red-500 font-bold">BETA</span> state. Do not expect the codes to work - the website is under heavy testing.</h2>
   <p class="ml-5 mr-5">This website provides GameShark cheat codes for Polished Crystal by scraping .sym and .asm files. This allows cheat codes to be up-to-date and customizable.</p>
-  <br>
   <div class="ml-5 mb-3">
   <p>Before using this website, read the following:</p>
   <ul class="list-inside list-disc">
@@ -29,12 +27,12 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier"];
   </div>
   <em class="ml-5">Credits: Rev3lation, Sylvie, LamLamLam</em><br><br>
 
-  <Select class="ml-5" v-model="selectedCheat" :options="cheats" filter placeholder="Select a Cheat"/>
+  <Select class="ml-5 mb-3" v-model="selectedCheat" :options="cheats" filter placeholder="Select a Cheat"/>
 
   <Divider />
 
-  <Wild class="ml-5 mr-5 mb-5" v-if="selectedCheat==='Wild Pokemon Modifier'" />
-  <Items class="ml-5 mr-5 mb-5" v-if="selectedCheat==='Item Modifier'"/>
+  <Wild class="mt-7 ml-5 mr-5 mb-5" v-if="selectedCheat==='Wild Pokemon Modifier'" />
+  <Items class="mt-7 ml-5 mr-5 mb-5" v-if="selectedCheat==='Item Modifier'"/>
 </template>
 
 <style scoped></style>
