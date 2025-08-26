@@ -20,7 +20,7 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Mod
   <h1 class="text-3xl font-bold mt-5 ml-5 mb-3 mr-5">Polished Cheats v3.1.1</h1>
   <h2 class="text-2xl italic mt-5 mb-5 ml-5 mr-5">This website is currently in a <span class="text-red-500 font-bold">BETA</span> state. Do not expect the codes to work - the website is under heavy testing.</h2>
   <p class="ml-5 mr-5">This website provides GameShark cheat codes for Polished Crystal by scraping .sym and .asm files. This allows cheat codes to be up-to-date and customizable.</p>
-  <div class="ml-5 mb-3">
+  <div class="mt-3 ml-5 mb-3">
   <p>Before using this website, read the following:</p>
   <ul class="list-inside list-disc">
     <li>These cheats work only on v3.1.1 of Polished Crystal. Attempts to use said codes in other versions <em>will</em> corrupt your save.</li>
