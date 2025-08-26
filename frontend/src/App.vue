@@ -8,11 +8,12 @@ import Moves from './components/Moves.vue'
 import Happiness from './components/Happiness.vue'
 import Money from './components/Money.vue'
 import AbilityNatureShiny from './components/AbilityNatureShiny.vue'
+import TMsHMs from './components/TMsHMs.vue'
 import Select from 'primevue/select'
 import Divider from 'primevue/divider';
 
 const selectedCheat = ref(null)
-const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness Modifier", "Money Modifier"];
+const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness Modifier", "Money Modifier", "TM & HM Modifier"];
 
 </script>
 
@@ -46,6 +47,7 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Mod
   <AbilityNatureShiny class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Ability / Nature / Shininess Modifier'"/>
   <Happiness class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Happiness Modifier'"/>
   <Money class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Money Modifier'"/>
+  <TMsHMs class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='TM & HM Modifier'"/>
 </template>
 
 <style scoped></style>
