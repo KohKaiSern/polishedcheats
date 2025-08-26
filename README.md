@@ -17,7 +17,7 @@ Polished Cheats is a GameShark cheat code auto-generator for the Pokémon Polish
 - Vue.js (Frontend)
 - Express.js (Backend API)
 - Tailwind CSS v4 (Utility-First Styling)
-- PrimeVue (Acessible Components)
+- PrimeVue (Accessible Components)
 
 ## Project Structure
 
