@@ -30,14 +30,16 @@ const getHappinessCode = (selectedHappiness) => {
 
 <template>
   <Card>
-    <template #title>Happiness</template>
+    <template #title>Happiness / Egg Cycles</template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedHappiness" inputId="happiness" showButtons :min="0" :max="255" fluid />
-        <label class="mt-2" for="happiness">Happiness</label>
+        <label class="mt-2" for="happiness">Happiness / Egg Cycles</label>
       </IftaLabel>
       <p class="mb-5" v-if="loaded">Your code for the Pokemon's Happiness is: {{ getHappinessCode(selectedHappiness) }}</p>
       <p>This code modifies the Happiness Value of the first Pokemon in your party. <br>
+        Incidentally, if the first Pokemon in your party is an Egg, this instead sets the number of Egg Cycles before hatching. <br>
+        For example, if you set the Egg Cycle count to 00, you will then only need to walk another 256 steps to hatch the Egg. <br>
         Should you wish to change the Happiness Values of the other Pokemon in your party, simply swap the party order to place them first.
       </p>
     </template>

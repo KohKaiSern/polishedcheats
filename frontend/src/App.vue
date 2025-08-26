@@ -14,7 +14,7 @@ import Select from 'primevue/select'
 import Divider from 'primevue/divider';
 
 const selectedCheat = ref(null)
-const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness Modifier", "Money Modifier", "TM & HM Modifier", "Gender Modifier"];
+const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness / Egg Cycle Modifier", "Money Modifier", "TM & HM Modifier", "Gender Modifier"];
 
 </script>
 
@@ -45,7 +45,7 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Mod
   <EVs class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='EV Modifier'"/>
   <Moves class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Moveset Modifier'"/>
   <AbilityNatureShiny class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Ability / Nature / Shininess Modifier'"/>
-  <Happiness class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Happiness Modifier'"/>
+  <Happiness class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Happiness / Egg Cycle Modifier'"/>
   <Money class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Money Modifier'"/>
   <TMsHMs class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='TM & HM Modifier'"/>
   <Gender class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Gender Modifier'"/>
