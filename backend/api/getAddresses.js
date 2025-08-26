@@ -28,7 +28,8 @@ const SYMBOLS = [
     'wPartyMon1Happiness', 
     'wPartyMon1Gender', 
     'wPartyMon1Moves', 
-    'wEnemyMonCatchRate'];
+    'wEnemyMonCatchRate',
+    'wCoins'];
 
 //Read addresses from .sym file
 export const getAddresses = () => {
