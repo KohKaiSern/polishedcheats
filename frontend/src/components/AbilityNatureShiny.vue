@@ -67,7 +67,7 @@ const getOptionCode = (selectedOptions) => {
   let cheatValue = parseInt((shinyValue + abilityValue + natureValue), 2).toString(16);
   cheatValue = "0".repeat(2 - cheatValue.length) + cheatValue;
 
-  return "01" + cheatValue + address;
+  return ("01" + cheatValue + address).toUpperCase();
 }
 
 </script>
@@ -81,7 +81,7 @@ const getOptionCode = (selectedOptions) => {
         <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[1]" :options="natures" filter placeholder="Select a Nature"/>
         <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[2]" :options="['Non-Shiny', 'Shiny']" placeholder="Choose Shininess"/>
       </div>
-      <p class="mb-5" v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]">Your code for {{ selectedOptions }} is: {{ getOptionCode(selectedOptions) }}</p>
+      <p class="mb-5" v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]">Your code for {{ selectedOptions[0] }}, a {{ selectedOptions[1] }} Nature and a {{ selectedOptions[2] }} Pokemon is: {{ getOptionCode(selectedOptions) }}</p>
       <p class="mb-5" v-else>Please choose an ability, a nature and a shininess value.</p>
       <p>This code modifies the ability, nature and shininess of your Pokemon. <br>
         If you have abilities and natures turned off in your save settings, this cheat will only affect shininess. <br>
