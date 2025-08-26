@@ -9,17 +9,17 @@ import Happiness from './components/Happiness.vue'
 import Money from './components/Money.vue'
 import AbilityNatureShiny from './components/AbilityNatureShiny.vue'
 import TMsHMs from './components/TMsHMs.vue'
+import Gender from './components/Gender.vue'
 import Select from 'primevue/select'
 import Divider from 'primevue/divider';
 
 const selectedCheat = ref(null)
-const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness Modifier", "Money Modifier", "TM & HM Modifier"];
+const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness Modifier", "Money Modifier", "TM & HM Modifier", "Gender Modifier"];
 
 </script>
 
 <template>
   <h1 class="text-3xl font-bold mt-5 ml-5 mb-3 mr-5">Polished Cheats v3.1.1</h1>
-  <h2 class="text-2xl italic mt-5 mb-5 ml-5 mr-5">This website is currently in a <span class="text-red-500 font-bold">BETA</span> state. Do not expect the codes to work - the website is under heavy testing.</h2>
   <p class="ml-5 mr-5">This website provides GameShark cheat codes for Polished Crystal by scraping .sym and .asm files. This allows cheat codes to be up-to-date and customizable.</p>
   <div class="mt-3 ml-5 mb-3">
   <p>Before using this website, read the following:</p>
@@ -32,7 +32,7 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Mod
     <li>Contact me via the Polished Crystal Discord server @Rev3lation if a code fails.</li>
   </ul>
   </div>
-  <em class="ml-5">Credits: Rev3lation, Sylvie, LamLamLam</em><br><br>
+  <em class="ml-5">Credits: Rev3lation, Sylvie, LamLamLam, Jaidenlyons</em><br><br>
 
   <Select class="ml-5 mb-3" v-model="selectedCheat" :options="cheats" filter placeholder="Select a Cheat"/>
 
@@ -48,6 +48,7 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Mod
   <Happiness class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Happiness Modifier'"/>
   <Money class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Money Modifier'"/>
   <TMsHMs class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='TM & HM Modifier'"/>
+  <Gender class="mt-7 ml-5 mr-5 mb-100" v-if="selectedCheat==='Gender Modifier'"/>
 </template>
 
 <style scoped></style>
