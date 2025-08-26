@@ -51,6 +51,8 @@ const getMoveCode = (selectedMoves) => {
       <p class="mb-5" v-else>Please choose four moves.</p>
       <p>This code modifies the moveset of the first Pokemon in your party. <br>
         Note that this allows the Pokemon to learn moves it typically cannot. <br>
+        Note that upon using this cheat, the PP of the moves will be incorrect, since it follows the PP of the old moveset. <br>
+        This is easily fixed by healing your Pokemon or putting it into the PC. <br>
         Should you wish to change the moveset of the other Pokemon in your party, simply swap the party order to place them first.
       </p>
     </template>

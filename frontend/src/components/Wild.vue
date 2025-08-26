@@ -185,7 +185,9 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
       </div>
       <p class="mb-5" v-if="selectedPokemon">Your code for {{ selectedPokemon }} is: {{ getPokemonCode(selectedPokemon, selectedForm) }}</p>
       <p class="mb-5" v-else>Please choose a Pokemon.</p>
-      <p>This code forces all Wild Encounters to be of the chosen Pokemon.
+      <p>This code forces all Wild Encounters to be of the chosen Pokemon.<br>
+        Note that this cheat causes a mild visual glitch in the battle animation. <br>
+        This is temporary and expected.
       </p>
     </template>
   </Card>

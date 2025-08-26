@@ -36,7 +36,7 @@ const getGenderCode = (selectedGender) => {
       <p class="mb-3" v-if="selectedGender">Your code for this gender is: {{ getGenderCode(selectedGender) }}</p>
       <p class="mb-3" v-else>Please choose a gender.</p>
       <p>This code modifies the Gender of the first Pokemon in your party. <br>
-        <!-- TODO: Figure out what happens when you use this code on a genderless species. -->
+        Note that this code has no effect on genderless Pokemon. <br>
         Should you wish to change the Genders of the other Pokemon in your party, simply swap the party order to place them first.
       </p>
     </template>
