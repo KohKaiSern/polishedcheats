@@ -76,7 +76,7 @@ const getOptionCode = (selectedOptions) => {
   <Card>
     <template #title>Ability / Nature / Shininess</template>
     <template #content>
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-5">
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-1">
         <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[0]" :options="['Ability 1', 'Ability 2', 'Hidden Ability']" placeholder="Select an Ability"/>
         <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[1]" :options="natures" filter placeholder="Select a Nature"/>
         <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[2]" :options="['Non-Shiny', 'Shiny']" placeholder="Choose Shininess"/>
