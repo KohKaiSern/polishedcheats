@@ -40,8 +40,8 @@ const getCoinCode = (selectedCoins) => {
         <label class="mt-2" for="coins">Coins</label>
       </IftaLabel>
       <p class="mb-5" v-if="loaded">Your code for the coins is: {{ getCoinCode(selectedCoins) }}</p>
-      <p>This code modifies the amount of game corner coins you have.
-        <!-- TODO: Figure out if this bypasses the coin case -->
+      <p>This code modifies the amount of game corner coins you have. <br>
+        Note that you will still need a Coin Case to actually use them.
       </p>
     </template>
   </Card>
