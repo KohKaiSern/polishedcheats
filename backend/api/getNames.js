@@ -29,9 +29,9 @@ export const getNames = () => {
             //Capitalization
             line = line[0] + line.slice(1).toLowerCase();
             //Special Cases: Farfetch'd, Sirfetch'd, Mr. Mime, Mr. Rime, Mime Jr., Nidoran F, Nidoran M, Ho-Oh, Porygon-Z
-            try {
-                line = specialMonNames[line]
-            } catch {}
+            if (specialMonNames.hasOwnProperty(line)) {
+                line = specialMonNames[line];
+            };
             names.push(line);
         }
     })
