@@ -179,7 +179,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
   <Card>
     <template #title>Wild Pokemon</template>
     <template #content>
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mb-5">
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-2 mb-5">
       <Select v-if="loaded" v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
       <Select v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
       </div>
