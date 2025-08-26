@@ -1,18 +1,8 @@
 # Polished Cheats
 
-___
-
-Pokémon
-
-## Overview
-
-___
-
 Polished Cheats is a GameShark cheat code auto-generator for the Pokémon Polished Crystal ROM Hack by Sylvie. It scrapes .sym and .asm files in order to provide customizable cheat codes.
 
 ## Features
-
-___
 
 - Generate any item
 - Encounter any Pokémon
@@ -24,16 +14,12 @@ ___
 
 ## Tech Stack
 
-___
-
 - Vue.js (Frontend)
 - Express.js (Backend API)
 - Tailwind CSS v4 (Utility-First Styling)
 - PrimeVue (Acessible Components)
 
 ## Project Structure
-
-___
 
 ### `backend/api/`
 
@@ -61,13 +47,9 @@ This folder contains the file scrapers that generate formatted data based on Pok
 
 ## License
 
-___
-
 This project is licensed under the MIT License.
 
 ## Acknowledgements
-
-___
 
 - Pokémon Polished Crystal by Sylvie (and contributors)
 - LamLamLam for setting the technical groundwork in data extraction
