@@ -1,10 +1,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { watch } from 'vue'
 import Card from 'primevue/card'
 import Select from 'primevue/select'
+import { Button } from 'primevue'
+import { useClipboard } from '@vueuse/core'
 import { addressExtend } from '../lib/addressExtend.js'
 
 const loaded = ref(false)
+const copy = ref(null)
+const copied = ref(null)
 const items = ref(null)
 const addresses = ref(null)
 const selectedItem = ref(null)
@@ -19,6 +24,13 @@ const fetchItems = async () => {
 onMounted(() => {
   fetchItems();
   loaded.value = true;
+});
+
+//Implements Clipboard when a code exists
+watch(selectedItem, () => {
+  const clipboard = useClipboard(getItemCode(selectedItem.value));
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
 });
 
 //Parse items into an array of [items] for Select to loop over
@@ -65,7 +77,7 @@ const getItemCode = (selectedItem) => {
 
 <template>
   <Card>
-    <template #title>Items</template>
+    <template #title>Items <Button v-if="selectedItem" @click="copy(getItemCode(selectedItem))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
       <p class="mb-5" v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>
