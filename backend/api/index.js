@@ -37,7 +37,7 @@ app.get('/api/moves', (req, res) => {
 
 // Start the Server
 app.listen(3000, () => {
-  console.log(`Server is running on http://localhost:3000`);
+  console.log(`Server is running on https://polishedcheats-backend.vercel.app`);
 });
 
 export default app;
