@@ -19,7 +19,7 @@ const specialMonNames = {
 export const getNames = () => {
 
     //Obtain the raw file data
-    const data = fs.readFileSync(path.join(__dirname, '..', 'public', 'pokemon_constants.asm'), 'utf8')
+    const data = fs.readFileSync(path.join(__dirname, '..', 'public', 'testerFolder', 'pokemon_constants.asm'), 'utf8')
 
     //Get all names
     let names = [];
