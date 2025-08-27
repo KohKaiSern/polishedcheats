@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 export const getMoves = () => {
 
     //Obtain the raw file data
-    let data = fs.readFileSync(path.join(__dirname, '..', 'public', 'names.asm'), 'utf8').trim().split(`\n`);
+    let data = fs.readFileSync(path.join(__dirname, '..', 'public', 'polishedcrystal', 'data', 'moves', 'names.asm'), 'utf8').trim().split(`\n`);
 
     //Get all moves
     let moves = [];

@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 export const getItems = () => {
 
     //Obtain the raw file data
-    const data = fs.readFileSync(path.join(__dirname, '..', 'public', 'attributes.asm'), 'utf8').trim().split('\n');
+    const data = fs.readFileSync(path.join(__dirname, '..', 'public', 'polishedcrystal', 'data', 'items', 'attributes.asm'), 'utf8').trim().split('\n');
 
     //Get all items and item types
     let items = [];
