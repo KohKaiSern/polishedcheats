@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { Button } from 'primevue'
+import { useClipboard } from '@vueuse/core'
 import Card from 'primevue/card'
 import Select from 'primevue/select'
 
 
-const loaded = ref(false)
 const addresses = ref(null)
+const copy = ref(null)
+const copied = ref(null)
 const natures = [
     'Hardy',
     'Lonely',
@@ -42,8 +45,17 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+//Implements Clipboard when a code exists
+watch(selectedOptions, () => {
+  if (!(selectedOptions.value.some(element => element === null))) {
+    const clipboard = useClipboard(getOptionCode(selectedOptions.value));
+    copy.value = clipboard.copy;
+    copied.value = clipboard.copied;
+  }
+  },
+  { deep : true });
 
 const getOptionCode = (selectedOptions) => {
   //Retrieve the right address
@@ -73,13 +85,13 @@ const getOptionCode = (selectedOptions) => {
 </script>
 
 <template>
-  <Card>
-    <template #title>Ability / Nature / Shininess</template>
+  <Card v-if="addresses">
+    <template #title>Ability / Nature / Shininess <Button v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]" @click="copy(getOptionCode(selectedOptions))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-1">
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[0]" :options="['Ability 1', 'Ability 2', 'Hidden Ability']" placeholder="Select an Ability"/>
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[1]" :options="natures" filter placeholder="Select a Nature"/>
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedOptions[2]" :options="['Non-Shiny', 'Shiny']" placeholder="Choose Shininess"/>
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-5">
+        <Select v-model="selectedOptions[0]" :options="['Ability 1', 'Ability 2', 'Hidden Ability']" placeholder="Select an Ability"/>
+        <Select v-model="selectedOptions[1]" :options="natures" filter placeholder="Select a Nature"/>
+        <Select v-model="selectedOptions[2]" :options="['Non-Shiny', 'Shiny']" placeholder="Choose Shininess"/>
       </div>
       <p class="mb-5" v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]">Your code for {{ selectedOptions[0] }}, a {{ selectedOptions[1] }} Nature and a {{ selectedOptions[2] }} Pokemon is: {{ getOptionCode(selectedOptions) }}</p>
       <p class="mb-5" v-else>Please choose an ability, a nature and a shininess value.</p>

@@ -71,8 +71,8 @@ const getHPType = (selectedDVs) => {
 </script>
 
 <template>
-  <Card>
-    <template #title>Determinant Values <Button v-if="addresses" @click="copy(getDVCode(selectedDVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+  <Card v-if="addresses">
+    <template #title>Determinant Values <Button @click="copy(getDVCode(selectedDVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mt-2 mb-6">
       <IftaLabel>

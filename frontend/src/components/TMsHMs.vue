@@ -1,10 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Card from 'primevue/card'
+import { useClipboard } from '@vueuse/core'
+import Button from 'primevue/button'
 import { addressExtend } from '../lib/addressExtend.js'
 
-const loaded = ref(false)
 const addresses = ref(null)
+const copy = ref(null)
+const copied = ref(null)
 
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
@@ -13,8 +16,13 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+watch(addresses, () => {
+  const clipboard = useClipboard(getTMCode());
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
+})
 
 const getTMCode = () => {
   //Retrieve the right address
@@ -36,10 +44,10 @@ const getTMCode = () => {
 </script>
 
 <template>
-  <Card>
-    <template #title>TMs & HMs</template>
+  <Card v-if="addresses">
+    <template #title>TMs & HMs <Button @click="copy(getTMCode())" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
-      <p class="mb-3" v-if="loaded">Your code for all the TMs and HMs is: {{ getTMCode() }}</p>
+      <p class="mt-2 mb-3">Your code for all the TMs and HMs is: {{ getTMCode() }}</p>
       <p>This code gives you every TM and HM. <br>
         Note that you will still need the relevant Gym Badges to use HM Moves outside of battle.
       </p>

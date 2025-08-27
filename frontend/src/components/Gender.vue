@@ -1,10 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { Button } from 'primevue'
+import { useClipboard } from '@vueuse/core'
 import Card from 'primevue/card'
 import { Select } from 'primevue'
 
-const loaded = ref(false)
 const addresses = ref(null)
+const copy = ref(null)
+const copied = ref(null)
 const selectedGender = ref(null)
 
 const fetchAddresses = async () => {
@@ -14,7 +17,13 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
+});
+
+//Implements Clipboard when a code exists
+watch(selectedGender, () => {
+  const clipboard = useClipboard(getGenderCode(selectedGender.value));
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
 });
 
 const getGenderCode = (selectedGender) => {
@@ -29,10 +38,10 @@ const getGenderCode = (selectedGender) => {
 </script>
 
 <template>
-  <Card>
-    <template #title>Gender</template>
+  <Card v-if="addresses">
+    <template #title>Gender <Button v-if="selectedGender" @click="copy(getGenderCode(selectedGender))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
-      <Select class="mt-2 mb-4" v-if="loaded" v-model="selectedGender" :options="['Male', 'Female']" placeholder="Select a Gender"/>
+      <Select class="mt-2 mb-4" v-model="selectedGender" :options="['Male', 'Female']" placeholder="Select a Gender"/>
       <p class="mb-3" v-if="selectedGender">Your code for this gender is: {{ getGenderCode(selectedGender) }}</p>
       <p class="mb-3" v-else>Please choose a gender.</p>
       <p>This code modifies the Gender of the first Pokemon in your party. <br>

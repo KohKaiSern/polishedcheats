@@ -8,7 +8,7 @@ import { addressExtend } from '../lib/addressExtend.js'
 
 
 const copy = ref(null)
-const copied = ref(false)
+const copied = ref(null)
 const addresses = ref(null)
 const moves = ref(null)
 const selectedMoves = ref([null, null, null, null])
@@ -50,14 +50,14 @@ const getMoveCode = (selectedMoves) => {
 </script>
 
 <template>
-  <Card>
+  <Card v-if="moves && addresses">
     <template #title>Moves <Button v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]" @click="copy(getMoveCode(selectedMoves))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-2 mb-5">
-        <Select class="mt-2" v-if="moves" v-model="selectedMoves[0]" :options="moves" filter placeholder="Select Move 1"/>
-        <Select class="mt-2" v-if="moves" v-model="selectedMoves[1]" :options="moves" filter placeholder="Select Move 2"/>
-        <Select class="mt-2" v-if="moves" v-model="selectedMoves[2]" :options="moves" filter placeholder="Select Move 3"/>
-        <Select class="mt-2" v-if="moves" v-model="selectedMoves[3]" :options="moves" filter placeholder="Select Move 4"/>
+        <Select v-model="selectedMoves[0]" :options="moves" filter placeholder="Select Move 1"/>
+        <Select v-model="selectedMoves[1]" :options="moves" filter placeholder="Select Move 2"/>
+        <Select v-model="selectedMoves[2]" :options="moves" filter placeholder="Select Move 3"/>
+        <Select v-model="selectedMoves[3]" :options="moves" filter placeholder="Select Move 4"/>
       </div>
       <p class="mb-5" v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]">Your code for this moveset is: {{ getMoveCode(selectedMoves) }}</p>
       <p class="mb-5" v-else>Please choose four moves.</p>

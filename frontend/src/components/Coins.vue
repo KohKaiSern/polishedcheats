@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Card from 'primevue/card'
+import { useClipboard } from '@vueuse/core'
+import Button from 'primevue/button'
 import InputNumber from 'primevue/inputnumber';
 import { IftaLabel } from 'primevue';
 import { addressExtend } from '../lib/addressExtend.js';
 
-const loaded = ref(false)
+const copy = ref(null)
+const copied = ref(null)
 const addresses = ref(null)
 const selectedCoins = ref(65535)
 
@@ -16,8 +19,13 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+watch(addresses, () => {
+  const clipboard = useClipboard(getCoinCode(selectedCoins.value));
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
+})
 
 const getCoinCode = (selectedCoins) => {
   //Retrieve the right address
@@ -32,14 +40,14 @@ const getCoinCode = (selectedCoins) => {
 </script>
 
 <template>
-  <Card>
-    <template #title>Coins</template>
+  <Card v-if="addresses">
+    <template #title>Coins <Button @click="copy(getCoinCode(selectedCoins))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedCoins" inputId="coins" showButtons :min="0" :max="65535" fluid />
         <label class="mt-2" for="coins">Coins</label>
       </IftaLabel>
-      <p class="mb-5" v-if="loaded">Your code for the coins is: {{ getCoinCode(selectedCoins) }}</p>
+      <p class="mb-5">Your code for the coins is: {{ getCoinCode(selectedCoins) }}</p>
       <p>This code modifies the amount of game corner coins you have. <br>
         Note that you will still need a Coin Case to actually use them.
       </p>

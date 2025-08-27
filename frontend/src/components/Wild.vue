@@ -185,11 +185,11 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
 </script>
 
 <template>
-  <Card>
+  <Card v-if="names && addresses">
     <template #title>Wild Pokemon <Button v-if="selectedPokemon" @click="copy(getPokemonCode(selectedPokemon, selectedForm))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-2 mb-5">
-      <Select v-if="names" v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
+      <Select v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
       <Select v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
       </div>
       <p class="mb-5" v-if="selectedPokemon">Your code for {{ selectedPokemon }} is: {{ getPokemonCode(selectedPokemon, selectedForm) }}</p>

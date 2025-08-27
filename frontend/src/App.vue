@@ -33,7 +33,7 @@ const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Mod
     <li>Contact me via the Polished Crystal Discord server @Rev3lation if a code fails.</li>
   </ul>
   </div>
-  <em class="ml-5">Credits: Rev3lation, Sylvie, LamLamLam, Jaidenlyons</em><br><br>
+  <em class="ml-5">Credits: Rev3lation, Sylvie, Cammy, Jaidenlyons</em><br><br>
 
   <Select class="ml-5 mb-3" v-model="selectedCheat" :options="cheats" filter placeholder="Select a Cheat"/>
 

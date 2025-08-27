@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Card from 'primevue/card'
+import { useClipboard } from '@vueuse/core'
+import Button from 'primevue/button'
 import InputNumber from 'primevue/inputnumber';
 import { IftaLabel } from 'primevue';
 import { addressExtend } from '../lib/addressExtend.js'
 
-const loaded = ref(false)
+const copy = ref(null)
+const copied = ref(null)
 const addresses = ref(null)
 const selectedMoney = ref(9999999)
 
@@ -16,8 +19,13 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+watch(addresses, () => {
+  const clipboard = useClipboard(getMoneyCode(selectedMoney.value));
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
+})
 
 const getMoneyCode = (selectedMoney) => {
   //Retrieve the right address
@@ -32,14 +40,14 @@ const getMoneyCode = (selectedMoney) => {
 </script>
 
 <template>
-  <Card>
-    <template #title>Money</template>
+  <Card v-if="addresses">
+    <template #title>Money <Button @click="copy(getMoneyCode(selectedMoney))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedMoney" inputId="money" showButtons :min="0" :max="9999999" fluid />
         <label class="mt-2" for="money">Money</label>
       </IftaLabel>
-      <p class="mb-5" v-if="loaded">Your code for the Amount of Money is: {{ getMoneyCode(selectedMoney) }}</p>
+      <p class="mb-5">Your code for the Amount of Money is: {{ getMoneyCode(selectedMoney) }}</p>
       <p>This code modifies the amount of money you have.</p>
     </template>
   </Card>
