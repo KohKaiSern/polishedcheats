@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Card from 'primevue/card'
 import Select from 'primevue/select'
+import { Button } from 'primevue'
+import { useClipboard } from '@vueuse/core'
 import { addressExtend } from '../lib/addressExtend.js'
 
 
-const loaded = ref(false)
+const copy = ref(null)
+const copied = ref(false)
 const addresses = ref(null)
 const moves = ref(null)
 const selectedMoves = ref([null, null, null, null])
@@ -19,8 +22,17 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+//Implements Clipboard when a code exists
+watch(selectedMoves, () => {
+  if (!(selectedMoves.value.some(element => element === null))) {
+    const clipboard = useClipboard(getMoveCode(selectedMoves.value));
+    copy.value = clipboard.copy;
+    copied.value = clipboard.copied;
+  }
+  },
+  { deep : true });
 
 const getMoveCode = (selectedMoves) => {
   //Retrieve the right address
@@ -39,13 +51,13 @@ const getMoveCode = (selectedMoves) => {
 
 <template>
   <Card>
-    <template #title>Moves</template>
+    <template #title>Moves <Button v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]" @click="copy(getMoveCode(selectedMoves))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-2 mb-1">
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedMoves[0]" :options="moves" filter placeholder="Select Move 1"/>
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedMoves[1]" :options="moves" filter placeholder="Select Move 2"/>
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedMoves[2]" :options="moves" filter placeholder="Select Move 3"/>
-        <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedMoves[3]" :options="moves" filter placeholder="Select Move 4"/>
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-2 mb-5">
+        <Select class="mt-2" v-if="moves" v-model="selectedMoves[0]" :options="moves" filter placeholder="Select Move 1"/>
+        <Select class="mt-2" v-if="moves" v-model="selectedMoves[1]" :options="moves" filter placeholder="Select Move 2"/>
+        <Select class="mt-2" v-if="moves" v-model="selectedMoves[2]" :options="moves" filter placeholder="Select Move 3"/>
+        <Select class="mt-2" v-if="moves" v-model="selectedMoves[3]" :options="moves" filter placeholder="Select Move 4"/>
       </div>
       <p class="mb-5" v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]">Your code for this moveset is: {{ getMoveCode(selectedMoves) }}</p>
       <p class="mb-5" v-else>Please choose four moves.</p>

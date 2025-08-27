@@ -1,13 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import Card from 'primevue/card'
 import Select from 'primevue/select'
 import { Button } from 'primevue'
 import { useClipboard } from '@vueuse/core'
 import { addressExtend } from '../lib/addressExtend.js'
 
-const loaded = ref(false)
 const copy = ref(null)
 const copied = ref(null)
 const items = ref(null)
@@ -23,7 +21,6 @@ const fetchItems = async () => {
 
 onMounted(() => {
   fetchItems();
-  loaded.value = true;
 });
 
 //Implements Clipboard when a code exists
@@ -79,7 +76,7 @@ const getItemCode = (selectedItem) => {
   <Card>
     <template #title>Items <Button v-if="selectedItem" @click="copy(getItemCode(selectedItem))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
-      <Select class="mt-2 mb-5" v-if="loaded" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
+      <Select class="mt-2 mb-5" v-if="items" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
       <p class="mb-5" v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>
       <p class="mb-5" v-else>Please choose an item.</p>
       <p>This code replaces the first item in the relevant bag slot with 99 of the chosen item. <br>

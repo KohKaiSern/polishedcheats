@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useClipboard } from '@vueuse/core'
+import Button from 'primevue/button'
 import Card from 'primevue/card'
 import InputNumber from 'primevue/inputnumber';
 import { IftaLabel } from 'primevue';
 
-const loaded = ref(false)
 const addresses = ref(null)
+const copy = ref(null)
+const copied = ref(false)
 const selectedEVs = ref([255, 255, 255, 255, 255, 255])
 
 const fetchAddresses = async () => {
@@ -15,8 +18,13 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+watch(addresses, () => {
+  const clipboard = useClipboard(getEVCode(selectedEVs.value));
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
+})
 
 const getEVCode = (selectedEVs) => {
   //Retrieve the right addresses
@@ -41,7 +49,7 @@ const getEVCode = (selectedEVs) => {
 
 <template>
   <Card>
-    <template #title>Effort Values</template>
+    <template #title>Effort Values <Button v-if="addresses" @click="copy(getEVCode(selectedEVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mt-2 mb-6">
       <IftaLabel>
@@ -69,7 +77,7 @@ const getEVCode = (selectedEVs) => {
         <label for="sdf">Special Defense</label>
       </IftaLabel>
       </div>
-      <p class="mb-5" v-if="loaded">Your code for the Effort Values is: {{ getEVCode(selectedEVs) }}</p>
+      <p class="mb-5" v-if="addresses">Your code for the Effort Values is: {{ getEVCode(selectedEVs) }}</p>
       <p>This code modifies the Effort Values of the first Pokemon in your party. <br>
         If you have EVs turned off in your save settings, this will only determine whether your Pokemon can be hyper trained. <br>
         If you have EVs set to 510 and you have more than 510 EVs, the game will automatically decrease the EVs evenly until it hits 510. <br>

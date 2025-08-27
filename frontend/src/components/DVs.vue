@@ -1,12 +1,15 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useClipboard } from '@vueuse/core'
+import Button from 'primevue/button'
 import Card from 'primevue/card'
 import InputNumber from 'primevue/inputnumber';
 import { IftaLabel } from 'primevue';
 
-const loaded = ref(false)
 const addresses = ref(null)
 const selectedDVs = ref([15, 15, 15, 15, 15, 15])
+const copy = ref(null)
+const copied = ref(false)
 const types = [
     "Fighting",
     "Flying",
@@ -34,14 +37,20 @@ const fetchAddresses = async () => {
 
 onMounted(() => {
   fetchAddresses();
-  loaded.value = true;
 });
+
+watch(addresses, () => {
+  const clipboard = useClipboard(getDVCode(selectedDVs.value));
+  copy.value = clipboard.copy;
+  copied.value = clipboard.copied;
+})
 
 const getDVCode = (selectedDVs) => {
   //Retrieve the right addresses
   let addressList = [addresses.value["wPartyMon1HPAtkDV"], addresses.value["wPartyMon1DefSpeDV"], addresses.value["wPartyMon1SatSdfDV"]];
   //Convert DVs to Hex (validation performed by PrimeVue component)
   selectedDVs = selectedDVs.map((dv) => dv.toString(16))
+
   return ("01" + selectedDVs[0] + selectedDVs[1] + addressList[0] + " 01" + selectedDVs[2] + selectedDVs[3] + addressList[1] + " 01" + selectedDVs[4] + selectedDVs[5] + addressList[2]).toUpperCase();
 }
 
@@ -63,7 +72,7 @@ const getHPType = (selectedDVs) => {
 
 <template>
   <Card>
-    <template #title>Determinant Values</template>
+    <template #title>Determinant Values <Button v-if="addresses" @click="copy(getDVCode(selectedDVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mt-2 mb-6">
       <IftaLabel>
@@ -91,7 +100,7 @@ const getHPType = (selectedDVs) => {
         <label for="sdf">Special Defense</label>
       </IftaLabel>
       </div>
-      <p class="mb-5" v-if="loaded">Your code for the Determinant Values is: {{ getDVCode(selectedDVs) }}</p>
+      <p class="mb-5" v-if="addresses">Your code for the Determinant Values is: {{ getDVCode(selectedDVs) }}</p>
       <p class="mb-5">The Hidden Power Type of your Pokemon will be: {{ getHPType(selectedDVs) }}</p>
       <p>This code modifies the Determinant Values of your Pokemon. As a side-effect, this will also affect the type of the Pokemon's Hidden Power move.<br>
         If you have Perfect Stats turned on in your save settings, this will only affect your Hidden Power Type. <br>
