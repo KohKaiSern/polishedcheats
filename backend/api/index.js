@@ -6,13 +6,14 @@ import { getAddresses } from './getAddresses.js';
 import { getItems } from './getItems.js';
 import { getNames } from './getNames.js';
 import { getMoves } from './getMoves.js';
+import { getVersion } from './getVersion.js';
 
 //Middleware
 app.use(cors());
 
 // Home Route
 app.get('/', (req, res) => {
-  res.send('Server is functioning!')
+  res.send(getVersion())
 })
 
 //Addresses Route
