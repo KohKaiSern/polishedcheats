@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Select from 'primevue/select'
 import Divider from 'primevue/divider';
 import Items from './components/Items.vue'
@@ -14,22 +14,33 @@ import TMsHMs from './components/TMsHMs.vue'
 import Gender from './components/Gender.vue'
 import Coins from './components/Coins.vue'
 
+const version = ref(null)
 const selectedCheat = ref(null)
 const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness / Egg Cycle Modifier", "Money Modifier", "TM & HM Modifier", "Gender Modifier", "Coins Modifier"];
+
+//GET version from API
+const fetchVersion = async () => {
+  let responseVersion = await fetch("https://polishedcheats-backend.vercel.app/") 
+  version.value = await responseVersion.text()
+}
+
+onMounted(() => {
+  fetchVersion();
+});
 
 </script>
 
 <template>
   <div class="ml-5 mr-5">
 
-    <h1 class="text-3xl font-bold mt-5 mb-3">Polished Cheats v3.1.1</h1>
+    <h1 class="text-3xl font-bold mt-5 mb-3">Polished Cheats v{{ version }}</h1>
 
     <p>This website provides GameShark cheat codes for Polished Crystal by scraping .sym and .asm files. This allows cheat codes to be up-to-date and customizable.</p>
     
     <div class="mt-3 mb-3">
       <p>Before using this website, read the following:</p>
       <ul class="list-inside list-disc">
-        <li>These cheats work only on v3.1.1 of Polished Crystal. Attempts to use said codes in other versions <em>will</em> corrupt your save.</li>
+        <li>These cheats work only on v{{ version }} of Polished Crystal. Attempts to use said codes in other versions <em>will</em> corrupt your save.</li>
         <li>Upon usage of a cheat, turn it off immediately to avoid side-effects. Always make a backup of your save before usage.</li>
         <li>If a cheat appeared to have done nothing, revert to a previous backup. The cheat has most likely broken your save.</li>
         <li>By using a cheat, you most likely invalidate any bug reports that come out of your save.</li>
