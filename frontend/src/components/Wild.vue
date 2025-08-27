@@ -7,8 +7,8 @@ import Button from 'primevue/button'
 
 const copy = ref(null)
 const copied = ref(null)
-const names = ref(null)
 const addresses = ref(null)
+const names = ref(null)
 const selectedPokemon = ref(null)
 const selectedForm = ref(null)
 
@@ -115,6 +115,7 @@ const forms =
     "Mewtwo": ["Plain", "Armored"]
 }
 
+//GET from API
 const fetchNames = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   let responseNames = await fetch("https://polishedcheats-backend.vercel.app/api/names")
@@ -126,7 +127,7 @@ onMounted(() => {
   fetchNames();
 });
 
-//Implements Clipboard when a code exists
+//Implements clipboard when a code exists
 watch(selectedPokemon, () => {
   const clipboard = useClipboard(getPokemonCode(selectedPokemon.value, selectedForm.value));
   copy.value = clipboard.copy;
@@ -138,6 +139,7 @@ watch(selectedPokemon, () => {
     selectedForm.value = false;
 });
 
+//Code generator
 const getPokemonCode = (selectedPokemon, selectedForm) => {
   //Retrieve the right addresses: wTempEnemyMonSpecies, wWildMonForm
   let addressList = [addresses.value["wTempEnemyMonSpecies"], addresses.value["wWildMonForm"]];
@@ -186,11 +188,13 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
 
 <template>
   <Card v-if="names && addresses">
-    <template #title>Wild Pokemon <Button v-if="selectedPokemon" @click="copy(getPokemonCode(selectedPokemon, selectedForm))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Wild Pokemon 
+      <Button v-if="selectedPokemon" @click="copy(getPokemonCode(selectedPokemon, selectedForm))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-2 mb-5">
-      <Select v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
-      <Select v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
+        <Select v-model="selectedPokemon" :options="names" filter placeholder="Select a Pokemon"/>
+        <Select v-if="forms[selectedPokemon]" v-model="selectedForm" :options="forms[selectedPokemon]" filter placeholder="Select a Form"/>
       </div>
       <p class="mb-5" v-if="selectedPokemon">Your code for {{ selectedPokemon }} is: {{ getPokemonCode(selectedPokemon, selectedForm) }}</p>
       <p class="mb-5" v-else>Please choose a Pokemon.</p>

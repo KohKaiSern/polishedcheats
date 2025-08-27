@@ -5,10 +5,11 @@ import { addressExtend } from '../lib/addressExtend.js'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 
-const addresses = ref(null)
 const copy = ref(null)
 const copied = ref(null)
+const addresses = ref(null)
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   addresses.value = await responseAddresses.json()
@@ -18,12 +19,14 @@ onMounted(() => {
   fetchAddresses();
 });
 
+//Implements clipboard when a code exists
 watch(addresses, () => {
   const clipboard = useClipboard(getTMCode());
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
 })
 
+//Code generator
 const getTMCode = () => {
   //Retrieve the right address
   let addressList = addressExtend(addresses.value["wTMsHMs"], 11);
@@ -45,7 +48,9 @@ const getTMCode = () => {
 
 <template>
   <Card v-if="addresses">
-    <template #title>TMs & HMs <Button @click="copy(getTMCode())" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      TMs & HMs
+      <Button @click="copy(getTMCode())" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
       <p class="mt-2 mb-3">Your code for all the TMs and HMs is: {{ getTMCode() }}</p>
       <p>This code gives you every TM and HM. <br>

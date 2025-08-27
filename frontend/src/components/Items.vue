@@ -8,10 +8,11 @@ import Button from 'primevue/button'
 
 const copy = ref(null)
 const copied = ref(null)
-const items = ref(null)
 const addresses = ref(null)
+const items = ref(null)
 const selectedItem = ref(null)
 
+//GET from API
 const fetchItems = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   let responseItems = await fetch("https://polishedcheats-backend.vercel.app/api/items")
@@ -23,7 +24,7 @@ onMounted(() => {
   fetchItems();
 });
 
-//Implements Clipboard when a code exists
+//Implements clipboard when a code exists
 watch(selectedItem, () => {
   const clipboard = useClipboard(getItemCode(selectedItem.value));
   copy.value = clipboard.copy;
@@ -37,6 +38,7 @@ const getItemList = () => {
   })
 }
 
+//Code generator
 const getItemCode = (selectedItem) => {
   //Retrieve the right address
   let address = "";
@@ -74,7 +76,9 @@ const getItemCode = (selectedItem) => {
 
 <template>
   <Card v-if="items && addresses">
-    <template #title>Items <Button v-if="selectedItem" @click="copy(getItemCode(selectedItem))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Items 
+      <Button v-if="selectedItem" @click="copy(getItemCode(selectedItem))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <Select class="mt-2 mb-5" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
       <p class="mb-5" v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>

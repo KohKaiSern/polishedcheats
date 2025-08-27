@@ -10,6 +10,7 @@ const copy = ref(null)
 const copied = ref(null)
 const selectedGender = ref(null)
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   addresses.value = await responseAddresses.json()
@@ -19,13 +20,14 @@ onMounted(() => {
   fetchAddresses();
 });
 
-//Implements Clipboard when a code exists
+//Implements clipboard when a code exists
 watch(selectedGender, () => {
   const clipboard = useClipboard(getGenderCode(selectedGender.value));
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
 });
 
+//Code generator
 const getGenderCode = (selectedGender) => {
   //Retrieve the right address
   let address = addresses.value["wPartyMon1Gender"];
@@ -39,7 +41,9 @@ const getGenderCode = (selectedGender) => {
 
 <template>
   <Card v-if="addresses">
-    <template #title>Gender <Button v-if="selectedGender" @click="copy(getGenderCode(selectedGender))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Gender
+      <Button v-if="selectedGender" @click="copy(getGenderCode(selectedGender))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
       <Select class="mt-2 mb-4" v-model="selectedGender" :options="['Male', 'Female']" placeholder="Select a Gender"/>
       <p class="mb-3" v-if="selectedGender">Your code for this gender is: {{ getGenderCode(selectedGender) }}</p>

@@ -37,6 +37,7 @@ const natures = [
 ]
 const selectedOptions = ref([null, null, null])
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   addresses.value = await responseAddresses.json()
@@ -46,7 +47,7 @@ onMounted(() => {
   fetchAddresses();
 });
 
-//Implements Clipboard when a code exists
+//Implements clipboard when a code exists
 watch(selectedOptions, () => {
   if (!(selectedOptions.value.some(element => element === null))) {
     const clipboard = useClipboard(getOptionCode(selectedOptions.value));
@@ -54,8 +55,10 @@ watch(selectedOptions, () => {
     copied.value = clipboard.copied;
   }
   },
-  { deep : true });
+  { deep : true }
+);
 
+//Code generator
 const getOptionCode = (selectedOptions) => {
   //Retrieve the right address
   let address = addresses.value["wPartyMon1Ability"];
@@ -68,6 +71,7 @@ const getOptionCode = (selectedOptions) => {
   //AA = 01 A1
   //AA = 10 A2
   //NNNNN = 00000 Hardy
+
   let shinyValue = (['Non-Shiny', 'Shiny'].indexOf(selectedOptions[2])).toString(2);
   let abilityValue = (['Hidden Ability', 'Ability 1', 'Ability 2'].indexOf(selectedOptions[0])).toString(2);
   abilityValue = "0".repeat(2 - abilityValue.length) + abilityValue;
@@ -85,7 +89,9 @@ const getOptionCode = (selectedOptions) => {
 
 <template>
   <Card v-if="addresses">
-    <template #title>Ability / Nature / Shininess <Button v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]" @click="copy(getOptionCode(selectedOptions))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Ability / Nature / Shininess
+      <Button v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]" @click="copy(getOptionCode(selectedOptions))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-5">
         <Select v-model="selectedOptions[0]" :options="['Ability 1', 'Ability 2', 'Hidden Ability']" placeholder="Select an Ability"/>

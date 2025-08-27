@@ -6,10 +6,10 @@ import InputNumber from 'primevue/inputnumber'
 import IftaLabel from 'primevue/iftalabel'
 import Button from 'primevue/button'
 
-const addresses = ref(null)
-const selectedDVs = ref([15, 15, 15, 15, 15, 15])
 const copy = ref(null)
 const copied = ref(false)
+const addresses = ref(null)
+const selectedDVs = ref([15, 15, 15, 15, 15, 15])
 const types = [
     "Fighting",
     "Flying",
@@ -30,6 +30,7 @@ const types = [
     "Fairy"
 ]
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   addresses.value = await responseAddresses.json()
@@ -39,21 +40,14 @@ onMounted(() => {
   fetchAddresses();
 });
 
+//Implements clipboard when a code exists
 watch(addresses, () => {
   const clipboard = useClipboard(getDVCode(selectedDVs.value));
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
 })
 
-const getDVCode = (selectedDVs) => {
-  //Retrieve the right addresses
-  let addressList = [addresses.value["wPartyMon1HPAtkDV"], addresses.value["wPartyMon1DefSpeDV"], addresses.value["wPartyMon1SatSdfDV"]];
-  //Convert DVs to Hex (validation performed by PrimeVue component)
-  selectedDVs = selectedDVs.map((dv) => dv.toString(16))
-
-  return ("01" + selectedDVs[0] + selectedDVs[1] + addressList[0] + " 01" + selectedDVs[2] + selectedDVs[3] + addressList[1] + " 01" + selectedDVs[4] + selectedDVs[5] + addressList[2]).toUpperCase();
-}
-
+//Calculates Hidden Power type
 const getHPType = (selectedDVs) => {
     //Hidden Power Type Algorithm
     //Convert every DV to a 0 or 1 depending on whether it is even or odd respectively.
@@ -68,39 +62,51 @@ const getHPType = (selectedDVs) => {
     return types[Math.floor(x * 16 / 63)];
 }
 
+//Code generator
+const getDVCode = (selectedDVs) => {
+  //Retrieve the right addresses
+  let addressList = [addresses.value["wPartyMon1HPAtkDV"], addresses.value["wPartyMon1DefSpeDV"], addresses.value["wPartyMon1SatSdfDV"]];
+  //Convert DVs to Hex (validation performed by PrimeVue component)
+  selectedDVs = selectedDVs.map((dv) => dv.toString(16))
+
+  return ("01" + selectedDVs[0] + selectedDVs[1] + addressList[0] + " 01" + selectedDVs[2] + selectedDVs[3] + addressList[1] + " 01" + selectedDVs[4] + selectedDVs[5] + addressList[2]).toUpperCase();
+}
+
 </script>
 
 <template>
   <Card v-if="addresses">
-    <template #title>Determinant Values <Button @click="copy(getDVCode(selectedDVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Determinant Values
+      <Button @click="copy(getDVCode(selectedDVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mt-2 mb-6">
-      <IftaLabel>
-        <InputNumber v-model="selectedDVs[0]" inputId="hp" showButtons :min="0" :max="15" fluid />
-        <label for="hp">HP</label>
-      </IftaLabel>
-      <IftaLabel>
-        <InputNumber v-model="selectedDVs[1]" inputId="atk" showButtons :min="0" :max="15" fluid />
-        <label for="atk">Attack</label>
-      </IftaLabel>
-      <IftaLabel>
-        <InputNumber v-model="selectedDVs[2]" inputId="def" showButtons :min="0" :max="15" fluid />
-        <label for="def">Defense</label>
-      </IftaLabel>
-      <IftaLabel>
-        <InputNumber v-model="selectedDVs[3]" inputId="spe" showButtons :min="0" :max="15" fluid />
-        <label for="spe">Speed</label>
-      </IftaLabel>
-      <IftaLabel>
-        <InputNumber v-model="selectedDVs[4]" inputId="sat" showButtons :min="0" :max="15" fluid />
-        <label for="sat">Special Attack</label>
-      </IftaLabel>
-      <IftaLabel>
-        <InputNumber v-model="selectedDVs[5]" inputId="sdf" showButtons :min="0" :max="15" fluid />
-        <label for="sdf">Special Defense</label>
-      </IftaLabel>
+        <IftaLabel>
+          <InputNumber v-model="selectedDVs[0]" inputId="hp" showButtons :min="0" :max="15" fluid />
+          <label for="hp">HP</label>
+        </IftaLabel>
+        <IftaLabel>
+          <InputNumber v-model="selectedDVs[1]" inputId="atk" showButtons :min="0" :max="15" fluid />
+          <label for="atk">Attack</label>
+        </IftaLabel>
+        <IftaLabel>
+          <InputNumber v-model="selectedDVs[2]" inputId="def" showButtons :min="0" :max="15" fluid />
+          <label for="def">Defense</label>
+        </IftaLabel>
+        <IftaLabel>
+          <InputNumber v-model="selectedDVs[3]" inputId="spe" showButtons :min="0" :max="15" fluid />
+          <label for="spe">Speed</label>
+        </IftaLabel>
+        <IftaLabel>
+          <InputNumber v-model="selectedDVs[4]" inputId="sat" showButtons :min="0" :max="15" fluid />
+          <label for="sat">Special Attack</label>
+        </IftaLabel>
+        <IftaLabel>
+          <InputNumber v-model="selectedDVs[5]" inputId="sdf" showButtons :min="0" :max="15" fluid />
+          <label for="sdf">Special Defense</label>
+        </IftaLabel>
       </div>
-      <p class="mb-5" v-if="addresses">Your code for the Determinant Values is: {{ getDVCode(selectedDVs) }}</p>
+      <p class="mb-5">Your code for the Determinant Values is: {{ getDVCode(selectedDVs) }}</p>
       <p class="mb-5">The Hidden Power Type of your Pokemon will be: {{ getHPType(selectedDVs) }}</p>
       <p>This code modifies the Determinant Values of your Pokemon. As a side-effect, this will also affect the type of the Pokemon's Hidden Power move.<br>
         If you have Perfect Stats turned on in your save settings, this will only affect your Hidden Power Type. <br>

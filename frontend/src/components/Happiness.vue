@@ -11,6 +11,7 @@ const copied = ref(null)
 const addresses = ref(null)
 const selectedHappiness = ref(255)
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   addresses.value = await responseAddresses.json()
@@ -20,12 +21,14 @@ onMounted(() => {
   fetchAddresses();
 });
 
+//Implements clipboard when a code exists
 watch(addresses, () => {
   const clipboard = useClipboard(getHappinessCode(selectedHappiness.value));
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
 })
 
+//Code generator
 const getHappinessCode = (selectedHappiness) => {
   //Retrieve the right address
   let address = addresses.value["wPartyMon1Happiness"];
@@ -38,7 +41,9 @@ const getHappinessCode = (selectedHappiness) => {
 
 <template>
   <Card v-if="addresses">
-    <template #title>Happiness / Egg Cycles <Button @click="copy(getHappinessCode(selectedHappiness))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Happiness / Egg Cycles
+      <Button @click="copy(getHappinessCode(selectedHappiness))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedHappiness" inputId="happiness" showButtons :min="0" :max="255" fluid />

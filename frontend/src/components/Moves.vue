@@ -13,6 +13,7 @@ const addresses = ref(null)
 const moves = ref(null)
 const selectedMoves = ref([null, null, null, null])
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   let responseMoves = await fetch("https://polishedcheats-backend.vercel.app/api/moves")
@@ -24,7 +25,7 @@ onMounted(() => {
   fetchAddresses();
 });
 
-//Implements Clipboard when a code exists
+//Implements clipboard when a code exists
 watch(selectedMoves, () => {
   if (!(selectedMoves.value.some(element => element === null))) {
     const clipboard = useClipboard(getMoveCode(selectedMoves.value));
@@ -32,8 +33,10 @@ watch(selectedMoves, () => {
     copied.value = clipboard.copied;
   }
   },
-  { deep : true });
+  { deep : true }
+);
 
+//Code generator
 const getMoveCode = (selectedMoves) => {
   //Retrieve the right address
   let addressList = addressExtend(addresses.value["wPartyMon1Moves"], 4);
@@ -51,7 +54,9 @@ const getMoveCode = (selectedMoves) => {
 
 <template>
   <Card v-if="moves && addresses">
-    <template #title>Moves <Button v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]" @click="copy(getMoveCode(selectedMoves))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Moves
+      <Button v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]" @click="copy(getMoveCode(selectedMoves))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-2 mb-5">
         <Select v-model="selectedMoves[0]" :options="moves" filter placeholder="Select Move 1"/>

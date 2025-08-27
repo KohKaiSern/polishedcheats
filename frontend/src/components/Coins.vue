@@ -12,6 +12,7 @@ const copied = ref(null)
 const addresses = ref(null)
 const selectedCoins = ref(65535)
 
+//GET from API
 const fetchAddresses = async () => {
   let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
   addresses.value = await responseAddresses.json()
@@ -21,12 +22,14 @@ onMounted(() => {
   fetchAddresses();
 });
 
+//Implements clipboard when a code exists
 watch(addresses, () => {
   const clipboard = useClipboard(getCoinCode(selectedCoins.value));
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
 })
 
+//Code generator
 const getCoinCode = (selectedCoins) => {
   //Retrieve the right address
   let addressList = addressExtend(addresses.value["wCoins"], 2);
@@ -41,7 +44,9 @@ const getCoinCode = (selectedCoins) => {
 
 <template>
   <Card v-if="addresses">
-    <template #title>Coins <Button @click="copy(getCoinCode(selectedCoins))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+    <template #title>
+      Coins
+      <Button @click="copy(getCoinCode(selectedCoins))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedCoins" inputId="coins" showButtons :min="0" :max="65535" fluid />
