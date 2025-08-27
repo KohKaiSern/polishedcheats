@@ -1,19 +1,21 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { useClipboard } from '@vueuse/core'
-import { addressExtend } from '../lib/addressExtend.js'
-import Card from 'primevue/card'
-import Button from 'primevue/button'
+import { ref, onMounted, watch } from "vue";
+import { useClipboard } from "@vueuse/core";
+import { addressExtend } from "../lib/addressExtend.js";
+import Card from "primevue/card";
+import Button from "primevue/button";
 
-const copy = ref(null)
-const copied = ref(null)
-const addresses = ref(null)
+const copy = ref(null);
+const copied = ref(null);
+const addresses = ref(null);
 
 //GET from API
 const fetchAddresses = async () => {
-  let responseAddresses = await fetch("https://polishedcheats-backend.vercel.app/api/addresses") 
-  addresses.value = await responseAddresses.json()
-}
+  let responseAddresses = await fetch(
+    "https://polishedcheats-backend.vercel.app/api/addresses"
+  );
+  addresses.value = await responseAddresses.json();
+};
 
 onMounted(() => {
   fetchAddresses();
@@ -24,7 +26,7 @@ watch(addresses, () => {
   const clipboard = useClipboard(getTMCode());
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
-})
+});
 
 //Code generator
 const getTMCode = () => {
@@ -39,11 +41,10 @@ const getTMCode = () => {
   let cheatValue = "";
   addressList.slice(0, -1).forEach((address) => {
     cheatValue += " 01FF" + address;
-  })
+  });
 
   return (cheatValue.slice(1) + " 0101" + addressList[10]).toUpperCase();
-}
-
+};
 </script>
 
 <template>
@@ -51,13 +52,22 @@ const getTMCode = () => {
     <template #title>
       <div class="flex flex-wrap justify-between gap-5">
         <span>TMs & HMs</span>
-        <Button @click="copy(getTMCode())" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+        <Button
+          @click="copy(getTMCode())"
+          :label="copied.value ? 'Copied!' : 'Copy'"
+          icon="pi pi-copy"
+          iconPos="right"
+        />
       </div>
     </template>
-    <template #content >
-      <p class="mt-2 mb-3">Your code for all the TMs and HMs is: {{ getTMCode() }}</p>
-      <p>This code gives you every TM and HM. <br>
-        Note that you will still need the relevant Gym Badges to use HM Moves outside of battle.
+    <template #content>
+      <p class="mt-2 mb-3">
+        Your code for all the TMs and HMs is: {{ getTMCode() }}
+      </p>
+      <p>
+        This code gives you every TM and HM. <br />
+        Note that you will still need the relevant Gym Badges to use HM Moves
+        outside of battle.
       </p>
     </template>
   </Card>
