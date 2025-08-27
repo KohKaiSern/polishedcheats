@@ -13,6 +13,7 @@ import AbilityNatureShiny from "./components/AbilityNatureShiny.vue";
 import TMsHMs from "./components/TMsHMs.vue";
 import Gender from "./components/Gender.vue";
 import Coins from "./components/Coins.vue";
+import CALC_NATURES from "./components/CALC_NATURES.vue";
 
 const version = ref(null);
 const selectedCheat = ref(null);
@@ -92,13 +93,14 @@ onMounted(() => {
 
     <Divider />
 
-    <div class="mt-7 mb-100">
+    <div class="mt-7 mb-100 flex flex-wrap gap-5">
       <Wild v-if="selectedCheat === 'Wild Pokemon Modifier'" />
       <Items v-if="selectedCheat === 'Item Modifier'" />
       <DVs v-if="selectedCheat === 'DV Modifier'" />
       <EVs v-if="selectedCheat === 'EV Modifier'" />
       <Moves v-if="selectedCheat === 'Moveset Modifier'" />
       <AbilityNatureShiny v-if="selectedCheat === 'Ability / Nature / Shininess Modifier'" />
+      <CALC_NATURES v-if="selectedCheat === 'Ability / Nature / Shininess Modifier'" />
       <Happiness v-if="selectedCheat === 'Happiness / Egg Cycle Modifier'" />
       <Money v-if="selectedCheat === 'Money Modifier'" />
       <TMsHMs v-if="selectedCheat === 'TM & HM Modifier'" />
