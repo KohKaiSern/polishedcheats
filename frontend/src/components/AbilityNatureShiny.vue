@@ -90,8 +90,11 @@ const getOptionCode = (selectedOptions) => {
 <template>
   <Card v-if="addresses">
     <template #title>
-      Ability / Nature / Shininess
-      <Button v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]" @click="copy(getOptionCode(selectedOptions))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Ability / Nature / Shininess</span>
+        <Button v-if="selectedOptions[0] && selectedOptions[1] && selectedOptions[2]" @click="copy(getOptionCode(selectedOptions))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-5">
         <Select v-model="selectedOptions[0]" :options="['Ability 1', 'Ability 2', 'Hidden Ability']" placeholder="Select an Ability"/>

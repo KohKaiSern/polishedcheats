@@ -55,8 +55,11 @@ const getMoveCode = (selectedMoves) => {
 <template>
   <Card v-if="moves && addresses">
     <template #title>
-      Moves
-      <Button v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]" @click="copy(getMoveCode(selectedMoves))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Moves</span>
+        <Button v-if="selectedMoves[0] && selectedMoves[1] && selectedMoves[2] && selectedMoves[3]" @click="copy(getMoveCode(selectedMoves))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-2 mb-5">
         <Select v-model="selectedMoves[0]" :options="moves" filter placeholder="Select Move 1"/>

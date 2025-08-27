@@ -53,8 +53,11 @@ const getEVCode = (selectedEVs) => {
 <template>
   <Card v-if="addresses">
     <template #title>
-      Effort Values
-      <Button @click="copy(getEVCode(selectedEVs))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Effort Values</span>
+        <Button @click="copy(getEVCode(selectedEVs))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mt-2 mb-6">
         <IftaLabel>

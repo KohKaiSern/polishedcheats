@@ -42,8 +42,11 @@ const getHappinessCode = (selectedHappiness) => {
 <template>
   <Card v-if="addresses">
     <template #title>
-      Happiness / Egg Cycles
-      <Button @click="copy(getHappinessCode(selectedHappiness))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Happiness / Egg Cycles</span>
+        <Button @click="copy(getHappinessCode(selectedHappiness))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedHappiness" inputId="happiness" showButtons :min="0" :max="255" fluid />

@@ -45,8 +45,11 @@ const getMoneyCode = (selectedMoney) => {
 <template>
   <Card v-if="addresses">
     <template #title>
-      Money
-      <Button @click="copy(getMoneyCode(selectedMoney))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Money</span>
+        <Button @click="copy(getMoneyCode(selectedMoney))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content >
       <IftaLabel>
         <InputNumber class="mt-2 mb-5" v-model="selectedMoney" inputId="money" showButtons :min="0" :max="9999999" fluid />

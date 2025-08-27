@@ -49,8 +49,11 @@ const getTMCode = () => {
 <template>
   <Card v-if="addresses">
     <template #title>
-      TMs & HMs
-      <Button @click="copy(getTMCode())" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>TMs & HMs</span>
+        <Button @click="copy(getTMCode())" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content >
       <p class="mt-2 mb-3">Your code for all the TMs and HMs is: {{ getTMCode() }}</p>
       <p>This code gives you every TM and HM. <br>

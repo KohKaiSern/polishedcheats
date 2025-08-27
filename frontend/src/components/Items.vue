@@ -77,8 +77,11 @@ const getItemCode = (selectedItem) => {
 <template>
   <Card v-if="items && addresses">
     <template #title>
-      Items 
-      <Button v-if="selectedItem" @click="copy(getItemCode(selectedItem))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Items</span> 
+        <Button v-if="selectedItem" @click="copy(getItemCode(selectedItem))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content>
       <Select class="mt-2 mb-5" v-model="selectedItem" :options="getItemList()" filter placeholder="Select an Item"/>
       <p class="mb-5" v-if="selectedItem">Your code for {{ selectedItem }} is: {{ getItemCode(selectedItem) }}</p>

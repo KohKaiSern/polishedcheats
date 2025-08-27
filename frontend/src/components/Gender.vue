@@ -42,8 +42,11 @@ const getGenderCode = (selectedGender) => {
 <template>
   <Card v-if="addresses">
     <template #title>
-      Gender
-      <Button v-if="selectedGender" @click="copy(getGenderCode(selectedGender))" :label="(copied.value ? 'Copied!' : 'Copy')" class="float-right" icon="pi pi-copy" iconPos="right" /></template>
+      <div class="flex flex-wrap justify-between gap-5">
+        <span>Gender</span>
+        <Button v-if="selectedGender" @click="copy(getGenderCode(selectedGender))" :label="(copied.value ? 'Copied!' : 'Copy')" icon="pi pi-copy" iconPos="right" />
+      </div>
+    </template>
     <template #content >
       <Select class="mt-2 mb-4" v-model="selectedGender" :options="['Male', 'Female']" placeholder="Select a Gender"/>
       <p class="mb-3" v-if="selectedGender">Your code for this gender is: {{ getGenderCode(selectedGender) }}</p>
