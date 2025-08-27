@@ -1,6 +1,6 @@
 # Polished Cheats
 
-Polished Cheats is a GameShark cheat code auto-generator for the Pokémon Polished Crystal ROM Hack by Sylvie. It scrapes .sym and .asm files in order to provide customizable cheat codes.
+Polished Cheats is a GameShark cheat code auto-generator for the Pokémon Polished Crystal ROM Hack by Sylvie (Rangi42). It scrapes .sym and .asm files in order to provide customizable cheat codes.
 
 ## Features
 
