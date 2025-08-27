@@ -48,7 +48,7 @@ onMounted(() => {
         <li>Contact me via the Polished Crystal Discord server @Rev3lation if a code fails.</li>
       </ul>
     </div>
-    <em>Credits: Rev3lation, Sylvie, Cammy, Jaidenlyons</em><br><br>
+    <em>Credits: Rev3lation, Sylvie (Rangi42), Cammy, Jaidenlyons</em><br><br>
 
     <Select class="mb-3" v-model="selectedCheat" :options="cheats" filter placeholder="Select a Cheat"/>
 

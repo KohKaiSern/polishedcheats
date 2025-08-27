@@ -51,7 +51,7 @@ This project is licensed under the MIT License.
 
 ## Acknowledgements
 
-- Pokémon Polished Crystal by Sylvie (and contributors)
+- Pokémon Polished Crystal by Sylvie (Rangi42) and contributors
 - Cammy for setting the technical groundwork in data extraction
 - Jaidenlyons for finding most of the pre-defined symbols.
 - PrimeVue, Vue.js, VueUse, Express.js, Tailwind CSS
