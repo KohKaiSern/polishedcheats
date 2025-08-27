@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { cache } from "./cache.js";
 const app = express();
 
 import { getAddresses } from "./getAddresses.js";
@@ -9,6 +10,7 @@ import { getMoves } from "./getMoves.js";
 import { getVersion } from "./getVersion.js";
 
 //Middleware
+//CORS
 app.use(cors());
 
 // Home Route
@@ -17,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 //Addresses Route
-app.get("/api/addresses", (req, res) => {
+app.get("/api/addresses", cache(900), (req, res) => {
   res.json(getAddresses());
 });
 
