@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import Select from 'primevue/select'
+import Divider from 'primevue/divider';
 import Items from './components/Items.vue'
 import Wild from './components/Wild.vue'
 import DVs from './components/DVs.vue'
@@ -11,8 +13,6 @@ import AbilityNatureShiny from './components/AbilityNatureShiny.vue'
 import TMsHMs from './components/TMsHMs.vue'
 import Gender from './components/Gender.vue'
 import Coins from './components/Coins.vue'
-import Select from 'primevue/select'
-import Divider from 'primevue/divider';
 
 const selectedCheat = ref(null)
 const cheats = ["Item Modifier", "Wild Pokemon Modifier", "DV Modifier", "EV Modifier", "Moveset Modifier", "Ability / Nature / Shininess Modifier", "Happiness / Egg Cycle Modifier", "Money Modifier", "TM & HM Modifier", "Gender Modifier", "Coins Modifier"];

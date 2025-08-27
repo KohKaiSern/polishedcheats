@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import Card from 'primevue/card'
-import Select from 'primevue/select'
-import { Button } from 'primevue'
 import { useClipboard } from '@vueuse/core'
 import { addressExtend } from '../lib/addressExtend.js'
+import Card from 'primevue/card'
+import Select from 'primevue/select'
+import Button from 'primevue/button'
 
 
 const copy = ref(null)

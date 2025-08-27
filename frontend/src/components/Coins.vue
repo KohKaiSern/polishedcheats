@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import Card from 'primevue/card'
 import { useClipboard } from '@vueuse/core'
+import { addressExtend } from '../lib/addressExtend.js'
+import Card from 'primevue/card'
+import InputNumber from 'primevue/inputnumber'
+import IftaLabel from 'primevue/iftalabel'
 import Button from 'primevue/button'
-import InputNumber from 'primevue/inputnumber';
-import { IftaLabel } from 'primevue';
-import { addressExtend } from '../lib/addressExtend.js';
 
 const copy = ref(null)
 const copied = ref(null)

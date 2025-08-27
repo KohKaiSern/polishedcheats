@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import Button from 'primevue/button'
 import Card from 'primevue/card'
-import InputNumber from 'primevue/inputnumber';
-import { IftaLabel } from 'primevue';
+import InputNumber from 'primevue/inputnumber'
+import IftaLabel from 'primevue/iftalabel'
+import Button from 'primevue/button'
 
 const addresses = ref(null)
 const copy = ref(null)

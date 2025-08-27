@@ -1,9 +1,9 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { Button } from 'primevue'
 import { useClipboard } from '@vueuse/core'
 import Card from 'primevue/card'
-import { Select } from 'primevue'
+import Select from 'primevue/select'
+import Button from 'primevue/button'
 
 const addresses = ref(null)
 const copy = ref(null)

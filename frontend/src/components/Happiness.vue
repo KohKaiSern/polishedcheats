@@ -3,8 +3,8 @@ import { ref, onMounted, watch } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
-import InputNumber from 'primevue/inputnumber';
-import { IftaLabel } from 'primevue';
+import InputNumber from 'primevue/inputnumber'
+import IftaLabel from 'primevue/iftalabel'
 
 const copy = ref(null)
 const copied = ref(null)
