@@ -30,6 +30,7 @@ const SYMBOLS = [
   "wPartyMon1Moves",
   "wEnemyMonCatchRate",
   "wCoins",
+  "wPartyMon1Status",
 ];
 
 //Read addresses from .sym file

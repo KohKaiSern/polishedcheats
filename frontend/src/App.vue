@@ -13,6 +13,7 @@ import AbilityNatureShiny from "./components/AbilityNatureShiny.vue";
 import TMsHMs from "./components/TMsHMs.vue";
 import Gender from "./components/Gender.vue";
 import Coins from "./components/Coins.vue";
+import Status from "./components/Status.vue";
 import CALC_NATURES from "./components/CALC_NATURES.vue";
 
 const version = ref(null);
@@ -29,6 +30,7 @@ const cheats = [
   "TM & HM Modifier",
   "Gender Modifier",
   "Coins Modifier",
+  "Status Modifier",
 ];
 
 //GET version from API
@@ -106,6 +108,7 @@ onMounted(() => {
       <TMsHMs v-if="selectedCheat === 'TM & HM Modifier'" />
       <Gender v-if="selectedCheat === 'Gender Modifier'" />
       <Coins v-if="selectedCheat === 'Coins Modifier'" />
+      <Status v-if="selectedCheat === 'Status Modifier'" />
     </div>
   </div>
 </template>
