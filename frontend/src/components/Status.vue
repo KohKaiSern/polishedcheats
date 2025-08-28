@@ -15,7 +15,6 @@ const statuses = [
   "Burn",
   "Freeze",
   "Paralysis",
-  "Badly Poisoned",
 ];
 const selectedStatus = ref(null);
 
@@ -50,7 +49,7 @@ const getStatusCode = (selectedStatus) => {
   // 0001 0000 -  Burn
   // 0010 0000 - Freeze
   // 0100 0000 - Paralysis
-  // 1000 0000 - Toxic
+  // 1000 0000 - Toxic (DO NOT SUPPORT - DOES NOT WORK AS INTENDED)
 
   let cheatValue = "00000000";
   if (selectedStatus != "No Status") {
