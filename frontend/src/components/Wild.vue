@@ -194,7 +194,7 @@ const getPokemonCode = (selectedPokemon, selectedForm, selectedGender) => {
   //Handling for 256+ Pokemon
   if (cheatValueSpecies > 255) {
     cheatValueSpecies -= 255;
-    speciesExtValue; //Switch 9th Bit to 1
+    speciesExtValue = "1"; //Switch 9th Bit to 1
   }
 
   //Form Handling
