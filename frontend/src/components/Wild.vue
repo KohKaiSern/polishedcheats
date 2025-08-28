@@ -141,7 +141,7 @@ watch(selectedPokemon, () => {
 
 //Resets selectedForm when selectedPokemon changes
 watch(selectedPokemon, () => {
-  selectedForm.value = false;
+  selectedForm.value = null;
 });
 
 //Code generator
