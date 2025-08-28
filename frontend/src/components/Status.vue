@@ -99,7 +99,7 @@ const getStatusCode = (selectedStatus) => {
         Pokemon in your party.
         <br />
         The purpose of this code is giving Pokemon with abilities like Guts or
-        Toxic Heal status conditions before battles so that they can hold things
+        Poison Heal status conditions before battles so that they can hold things
         other than Flame and Toxic Orbs. <br />
         Should you wish to change the non-volatile statuses of the other Pokemon
         in your party, simply swap the party order to place them first.
