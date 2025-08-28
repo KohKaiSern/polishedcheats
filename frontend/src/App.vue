@@ -96,19 +96,19 @@ onMounted(() => {
     <Divider />
 
     <div class="mt-7 mb-100 flex flex-wrap gap-5">
-      <Wild v-if="selectedCheat === 'Wild Pokemon Modifier'" />
-      <Items v-if="selectedCheat === 'Item Modifier'" />
-      <DVs v-if="selectedCheat === 'DV Modifier'" />
-      <EVs v-if="selectedCheat === 'EV Modifier'" />
-      <Moves v-if="selectedCheat === 'Moveset Modifier'" />
-      <AbilityNatureShiny v-if="selectedCheat === 'Ability / Nature / Shininess Modifier'" />
-      <CALC_NATURES v-if="selectedCheat === 'Ability / Nature / Shininess Modifier'" />
-      <Happiness v-if="selectedCheat === 'Happiness / Egg Cycle Modifier'" />
-      <Money v-if="selectedCheat === 'Money Modifier'" />
-      <TMsHMs v-if="selectedCheat === 'TM & HM Modifier'" />
-      <Gender v-if="selectedCheat === 'Gender Modifier'" />
-      <Coins v-if="selectedCheat === 'Coins Modifier'" />
-      <Status v-if="selectedCheat === 'Status Modifier'" />
+      <Wild class="w-full" v-if="selectedCheat === 'Wild Pokemon Modifier'" />
+      <Items class="w-full" v-if="selectedCheat === 'Item Modifier'" />
+      <DVs class="w-full" v-if="selectedCheat === 'DV Modifier'" />
+      <EVs class="w-full" v-if="selectedCheat === 'EV Modifier'" />
+      <Moves class="w-full" v-if="selectedCheat === 'Moveset Modifier'" />
+      <AbilityNatureShiny class="w-full" v-if="selectedCheat === 'Ability / Nature / Shininess Modifier'" />
+      <CALC_NATURES class="w-full" v-if="selectedCheat === 'Ability / Nature / Shininess Modifier'" />
+      <Happiness class="w-full" v-if="selectedCheat === 'Happiness / Egg Cycle Modifier'" />
+      <Money class="w-full" v-if="selectedCheat === 'Money Modifier'" />
+      <TMsHMs class="w-full" v-if="selectedCheat === 'TM & HM Modifier'" />
+      <Gender class="w-full" v-if="selectedCheat === 'Gender Modifier'" />
+      <Coins class="w-full" v-if="selectedCheat === 'Coins Modifier'" />
+      <Status class="w-full" v-if="selectedCheat === 'Status Modifier'" />
     </div>
   </div>
 </template>

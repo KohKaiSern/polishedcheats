@@ -100,8 +100,8 @@ const forms = {
   Meowth: ["Plain", "Alolan", "Galarian"],
   Persian: ["Plain", "Alolan"],
   Tauros: ["Plain", "Paldean Blaze Breed", "Paldean Aqua Breed", "Paldean"],
-  Mr__mime: ["Plain", "Galarian"],
-  Farfetch_d: ["Plain", "Galarian"],
+  "Mr. Mime": ["Plain", "Galarian"],
+  "Farfetch'd": ["Plain", "Galarian"],
   Qwilfish: ["Plain", "Hisuian"],
   Corsola: ["Plain", "Galarian"],
   Ursaluna: ["Plain", "Bloodmoon"],
@@ -205,6 +205,8 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
     genderValue + isEggValue + speciesExtValue + formValue,
     2
   ).toString(16);
+
+  cheatValue = "0".repeat(2 - cheatValue.length) + cheatValue;
 
   return ("01" + cheatValue + address).toUpperCase();
 };
