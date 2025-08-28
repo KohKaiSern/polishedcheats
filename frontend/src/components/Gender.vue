@@ -138,7 +138,11 @@ watch(selectedPokemon, () => {
 
 //Implements clipboard when a code exists
 watch([selectedPokemon, selectedGender, selectedForm], () => {
-  if (selectedGender.value && selectedPokemon.value && selectedForm.value) {
+  if (
+    selectedGender.value &&
+    selectedPokemon.value &&
+    (selectedForm.value || !forms.hasOwnProperty(selectedPokemon.value))
+  ) {
     const clipboard = useClipboard(
       getGenderCode(
         selectedGender.value,
@@ -157,10 +161,10 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
   let address = addresses.value["wPartyMon1Gender"];
 
   //Gender is one part of an 8-bit address abxccccc
-  // x - 9th-bit species index - set to 1 if Pokemon is 255+
-  // a - gender - set to 0 for male, 1 for female
-  // b - isEgg - set to 0
-  // c - form - set to 01 for default, etc. (see Wild.vue for specifics)
+  //x - 9th-bit species index - set to 1 if Pokemon is 256+
+  //a - gender - set to 0 for male, 1 for female
+  //b - isEgg - set to 0
+  //c - form - set to 01 for default, etc. (see Wild.vue for specifics)
 
   //That is to say, to set the gender accurately,
   //it is necessary for the user to select
@@ -171,7 +175,7 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
   let speciesExtValue = "0";
   let formValue = 1;
 
-  //Handling for 255+ Pokemon
+  //Handling for 256+ Pokemon
   if (names.value.indexOf(selectedPokemon) > 254) {
     speciesExtValue = "1";
   }
@@ -197,8 +201,6 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
   formValue = formValue.toString(2);
   formValue = "0".repeat(5 - formValue.length) + formValue;
 
-  console.log(genderValue, isEggValue, speciesExtValue, formValue);
-
   let cheatValue = parseInt(
     genderValue + isEggValue + speciesExtValue + formValue,
     2
@@ -214,7 +216,11 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
       <div class="flex flex-wrap justify-between gap-5">
         <span>Gender</span>
         <Button
-          v-if="selectedGender && selectedPokemon && selectedForm"
+          v-if="
+            selectedGender &&
+            selectedPokemon &&
+            (selectedForm || !forms.hasOwnProperty(selectedPokemon))
+          "
           @click="
             copy(getGenderCode(selectedGender, selectedPokemon, selectedForm))
           "
@@ -241,14 +247,21 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
           filter
           placeholder="Select a Form"
         />
-        <Select v-else disabled placeholder="No Form available" />
+        <Select v-else disabled placeholder="No form available" />
         <Select
           v-model="selectedGender"
           :options="['Male', 'Female']"
           placeholder="Select a Gender"
         />
       </div>
-      <p class="mb-3" v-if="selectedGender">
+      <p
+        class="mb-3"
+        v-if="
+          selectedGender &&
+          selectedPokemon &&
+          (selectedForm || !forms.hasOwnProperty(selectedPokemon))
+        "
+      >
         Your code for this gender is:
         {{ getGenderCode(selectedGender, selectedPokemon, selectedForm) }}
       </p>

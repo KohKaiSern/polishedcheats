@@ -11,6 +11,7 @@ const addresses = ref(null);
 const names = ref(null);
 const selectedPokemon = ref(null);
 const selectedForm = ref(null);
+const selectedGender = ref(null);
 
 //TODO: Auto-generate forms
 const forms = {
@@ -130,70 +131,102 @@ onMounted(() => {
   fetchNames();
 });
 
-//Implements clipboard when a code exists
-watch(selectedPokemon, () => {
-  const clipboard = useClipboard(
-    getPokemonCode(selectedPokemon.value, selectedForm.value)
-  );
-  copy.value = clipboard.copy;
-  copied.value = clipboard.copied;
-});
-
 //Resets selectedForm when selectedPokemon changes
 watch(selectedPokemon, () => {
   selectedForm.value = null;
 });
 
+//Implements clipboard when a code exists
+watch([selectedPokemon, selectedGender, selectedForm], () => {
+  if (
+    selectedGender.value &&
+    selectedPokemon.value &&
+    (selectedForm.value || !forms.hasOwnProperty(selectedPokemon.value))
+  ) {
+    const clipboard = useClipboard(
+      getPokemonCode(
+        selectedPokemon.value,
+        selectedForm.value,
+        selectedGender.value
+      )
+    );
+    copy.value = clipboard.copy;
+    copied.value = clipboard.copied;
+  }
+});
+
 //Code generator
-const getPokemonCode = (selectedPokemon, selectedForm) => {
+const getPokemonCode = (selectedPokemon, selectedForm, selectedGender) => {
   //Retrieve the right addresses: wTempEnemyMonSpecies, wWildMonForm
   let addressList = [
     addresses.value["wTempEnemyMonSpecies"],
     addresses.value["wWildMonForm"],
   ];
-  let cheatValueSpecies = "";
-  let cheatValueForm = "01";
-
   //Obtain cheatValueSpecies
-  cheatValueSpecies = (names.value.indexOf(selectedPokemon) + 1).toString(16);
+  let cheatValueSpecies = names.value.indexOf(selectedPokemon) + 1;
 
-  //For Pokemon with IDs over 255, wTempEnemyMonSpecies loops back to 01, with wWildMonForm then set to 21.
-  if (parseInt(cheatValueSpecies, 16) > 255) {
-    cheatValueSpecies = (parseInt(cheatValueSpecies, 16) - 255).toString(16);
-    cheatValueForm = "21";
+  //Wild Encounters are determined by two memory addresses - wTempEnemyMonSpecies & wWildMonForm
+  //wTempEnemyMonSpecies:
+  //8-bits, goes from Pokemon 01 - Bulbasaur to 255 - Egg
+  //256 and above loops back to 01 and switches on x in wWildMonForm
+  //
+  //wWildMonForm:
+  //8-bits, in the structure abxccccc
+  //x - 9th-bit species index - set to 1 if Pokemon is 256+
+  //a - gender - set to 0 for male, 1 for female
+  //b - isEgg - set to 0
+  //c - form
+  //Form is set by 5-bits.
+  //Form generally counts up in a numerical order, with the exception of:
+  //A. Regional Forms:
+  //02 - Alolan
+  //03 - Galarian
+  //04 - Hisuian
+  //05 - Paldean
+  //B. Red Gyarados
+  //15 - Red Gyarados
+
+  let genderValue = selectedGender === "Male" ? "0" : "1"; //Gender
+  let isEggValue = "0"; //isEgg
+  let speciesExtValue = "0"; //9th Bit
+  let formValue = 1; //Form
+
+  //Handling for 256+ Pokemon
+  if (cheatValueSpecies > 255) {
+    cheatValueSpecies -= 255;
+    speciesExtValue; //Switch 9th Bit to 1
   }
 
-  //Obtain cheatValueForm
-  //Cases: Gyarados, Regional Forms, 255+ Pokemon
+  //Form Handling
+  //Cases: Gyarados, Regional Forms
   //Red Gyarados
   if (selectedPokemon === "Gyarados" && selectedForm === "Red") {
-    cheatValueForm = "15";
+    formValue = 21;
   }
-
-  //255+ Pokemon
-  else if (cheatValueForm === "21" && selectedForm) {
-    cheatValueForm = (
-      33 + forms[selectedPokemon].indexOf(selectedForm)
-    ).toString(16);
-  }
-
   //Regional Forms
   else if (
     ["Alolan", "Galarian", "Hisuian", "Paldean"].includes(selectedForm)
   ) {
-    cheatValueForm = (
-      2 + ["Alolan", "Galarian", "Hisuian", "Paldean"].indexOf(selectedForm)
-    ).toString(16);
+    formValue =
+      2 + ["Alolan", "Galarian", "Hisuian", "Paldean"].indexOf(selectedForm);
   }
-
-  //Cosmetic Forms
+  //Other Forms
   else if (selectedForm) {
-    cheatValueForm = (
-      1 + forms[selectedPokemon].indexOf(selectedForm)
-    ).toString(16);
+    formValue += forms[selectedPokemon].indexOf(selectedForm);
   }
 
-  //Pad the Values
+  formValue = formValue.toString(2);
+  formValue = "0".repeat(5 - formValue.length) + formValue;
+
+  //Put it all together
+  let cheatValueForm = parseInt(
+    genderValue + isEggValue + speciesExtValue + formValue,
+    2
+  ).toString(16);
+
+  cheatValueSpecies = cheatValueSpecies.toString(16);
+
+  //Pad the values
   cheatValueSpecies =
     "0".repeat(2 - cheatValueSpecies.length) + cheatValueSpecies;
   cheatValueForm = "0".repeat(2 - cheatValueForm.length) + cheatValueForm;
@@ -215,8 +248,14 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
       <div class="flex flex-wrap justify-between gap-5">
         <span>Wild Pokemon</span>
         <Button
-          v-if="selectedPokemon"
-          @click="copy(getPokemonCode(selectedPokemon, selectedForm))"
+          v-if="
+            selectedGender &&
+            selectedPokemon &&
+            (selectedForm || !forms.hasOwnProperty(selectedPokemon))
+          "
+          @click="
+            copy(getPokemonCode(selectedPokemon, selectedForm, selectedGender))
+          "
           :label="copied.value ? 'Copied!' : 'Copy'"
           icon="pi pi-copy"
           iconPos="right"
@@ -225,7 +264,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
     </template>
     <template #content>
       <div
-        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-2 mb-5"
+        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 mt-2 mb-5"
       >
         <Select
           v-model="selectedPokemon"
@@ -234,20 +273,36 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
           placeholder="Select a Pokemon"
         />
         <Select
-          v-if="forms[selectedPokemon]"
+          v-if="forms.hasOwnProperty(selectedPokemon)"
           v-model="selectedForm"
           :options="forms[selectedPokemon]"
           filter
           placeholder="Select a Form"
         />
+        <Select v-else disabled placeholder="No form available" />
+        <Select
+          v-model="selectedGender"
+          :options="['Male', 'Female']"
+          placeholder="Select a Gender"
+        />
       </div>
-      <p class="mb-5" v-if="selectedPokemon">
+      <p
+        class="mb-5"
+        v-if="
+          selectedGender &&
+          selectedPokemon &&
+          (selectedForm || !forms.hasOwnProperty(selectedPokemon))
+        "
+      >
         Your code for {{ selectedPokemon }} is:
-        {{ getPokemonCode(selectedPokemon, selectedForm) }}
+        {{ getPokemonCode(selectedPokemon, selectedForm, selectedGender) }}
       </p>
-      <p class="mb-5" v-else>Please choose a Pokemon.</p>
+      <p class="mb-5" v-else>
+        Please choose a Pokemon species, form and gender.
+      </p>
       <p>
         This code forces all Wild Encounters to be of the chosen Pokemon.<br />
+        If the Pokemon is genderless, either option for gender will work. <br />
         Note that this cheat causes a mild visual glitch in the battle
         animation. <br />
         This is temporary and expected.
