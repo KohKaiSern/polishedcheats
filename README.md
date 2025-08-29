@@ -11,6 +11,8 @@ Polished Cheats is a GameShark cheat code auto-generator for the Pokémon Polish
 - Change Abilities, Nature and Shininess of a Pokémon
 - Change Gender, Moveset and Happiness of a Pokémon
 - Modify the amount of money of the Player
+- Apply status effect to a Pokemon (for Guts, Poison Heal, etc.)
+- Set the level of a Pokemon (for Nuzlocke players to fix overlevelled Pokemon)
 
 ## Tech Stack
 
