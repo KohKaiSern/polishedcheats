@@ -149,10 +149,7 @@ watch([selectedPokemon, selectedForm], () => {
     (selectedForm.value || !forms.hasOwnProperty(selectedPokemon.value))
   ) {
     const clipboard = useClipboard(
-      getPokemonCode(
-        selectedPokemon.value,
-        selectedForm.value
-      )
+      getPokemonCode(selectedPokemon.value, selectedForm.value)
     );
     copy.value = clipboard.copy;
     copied.value = clipboard.copied;
@@ -190,7 +187,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
   //B. Red Gyarados
   //15 - Red Gyarados
 
-  let genderValue = "0" //For some reason, toggling this doesn't guarantee M/F
+  let genderValue = "0"; //For some reason, toggling this doesn't guarantee M/F
   let isEggValue = "0"; //isEgg
   let speciesExtValue = "0"; //9th Bit
   let formValue = 1; //Form
@@ -256,9 +253,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
             selectedPokemon &&
             (selectedForm || !forms.hasOwnProperty(selectedPokemon))
           "
-          @click="
-            copy(getPokemonCode(selectedPokemon, selectedForm))
-          "
+          @click="copy(getPokemonCode(selectedPokemon, selectedForm))"
           :label="copied.value ? 'Copied!' : 'Copy'"
           icon="pi pi-copy"
           iconPos="right"
@@ -294,9 +289,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
         Your code for {{ selectedPokemon }} is:
         {{ getPokemonCode(selectedPokemon, selectedForm) }}
       </p>
-      <p class="mb-5" v-else>
-        Please choose a Pokemon species and form.
-      </p>
+      <p class="mb-5" v-else>Please choose a Pokemon species and form.</p>
       <p>
         This code forces all Wild Encounters to be of the chosen Pokemon.<br />
         Note that this cheat causes a mild visual glitch in the battle

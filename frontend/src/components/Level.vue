@@ -80,8 +80,8 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
 
   let exp = Math.floor(
     (coefficients[0] / coefficients[1]) * selectedLevel ** 3 +
-    coefficients[2] * selectedLevel -
-    coefficients[3]
+      coefficients[2] * selectedLevel -
+      coefficients[3]
   ).toString(16);
   exp = "0".repeat(6 - exp.length) + exp;
   selectedLevel = selectedLevel.toString(16);

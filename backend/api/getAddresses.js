@@ -32,7 +32,7 @@ const SYMBOLS = [
   "wCoins",
   "wPartyMon1Status",
   "wPartyMon1Level",
-  "wPartyMon1Exp"
+  "wPartyMon1Exp",
 ];
 
 //Read addresses from .sym file

@@ -18,24 +18,24 @@ export const getGrowthRateCoefficients = () => {
       ),
       "utf8"
     )
-    .trim()
+    .trim();
 
   //Get all growth rate coefficients
-  let growthRateCoefficients = {}
-  data = data.slice(data.indexOf("GrowthRates")).split(`\n`)
+  let growthRateCoefficients = {};
+  data = data.slice(data.indexOf("GrowthRates")).split(`\n`);
   data.forEach((line) => {
-    if (line.includes('\tgrowth_rate')) {
-        let growthRate = line.slice(line.indexOf(";") + 2)
-        //Format name to match the base_stats files
-        growthRate = growthRate.replace(" ", "_").toUpperCase()
+    if (line.includes("\tgrowth_rate")) {
+      let growthRate = line.slice(line.indexOf(";") + 2);
+      //Format name to match the base_stats files
+      growthRate = growthRate.replace(" ", "_").toUpperCase();
 
-        //Get coefficients
-        let coefficients = line.slice(12, line.indexOf(";")).trim().split(",")
-        coefficients = coefficients.map((coefficient) => {
-            return parseInt(coefficient.trim())
-        })
-        growthRateCoefficients[growthRate] = coefficients
+      //Get coefficients
+      let coefficients = line.slice(12, line.indexOf(";")).trim().split(",");
+      coefficients = coefficients.map((coefficient) => {
+        return parseInt(coefficient.trim());
+      });
+      growthRateCoefficients[growthRate] = coefficients;
     }
-  })
+  });
   return growthRateCoefficients;
 };

@@ -114,10 +114,10 @@ export const getNames = () => {
   names.forEach((name) => {
     growthRates.forEach((growthRate) => {
       if (growthRate.hasOwnProperty(name)) {
-        data.push(growthRate)
+        data.push(growthRate);
         return;
       }
-    })
-  })
+    });
+  });
   return data;
 };
