@@ -9,7 +9,7 @@ import Button from "primevue/button";
 const copy = ref(null);
 const copied = ref(false);
 const addresses = ref(null);
-const selectedEVs = ref([255, 255, 255, 255, 255, 255]);
+const selectedEVs = ref([252, 252, 252, 252, 252, 252]);
 
 //GET from API
 const fetchAddresses = async () => {
