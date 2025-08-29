@@ -124,7 +124,7 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
     <template #content>
       <IftaLabel>
         <InputNumber
-          class="mt-2 mb-2"
+          class="mt-2 mb-3"
           v-model="selectedLevel"
           inputId="level"
           showButtons
