@@ -83,9 +83,13 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
       coefficients[2] * selectedLevel -
       coefficients[3]
   ).toString(16);
+
+  //Pad values
   exp = "0".repeat(6 - exp.length) + exp;
   selectedLevel = selectedLevel.toString(16);
   selectedLevel = "0".repeat(2 - selectedLevel.length) + selectedLevel;
+
+  //Put it all together
   return (
     "01" +
     selectedLevel +
