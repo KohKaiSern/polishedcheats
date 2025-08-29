@@ -152,14 +152,6 @@ watch([selectedPokemon, selectedForm], () => {
   }
 });
 
-//Parse names into an array of [names] for this component,
-//which doesn't need the growth rates
-const getNameList = () => {
-  return names.value.map((names) => {
-    return Object.keys(names)[0];
-  });
-};
-
 //Code generator
 const getPokemonCode = (selectedPokemon, selectedForm) => {
   //Retrieve the right addresses: wTempEnemyMonSpecies, wWildMonForm
@@ -168,7 +160,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
     addresses.value["wWildMonForm"],
   ];
   //Obtain cheatValueSpecies
-  let cheatValueSpecies = getNameList().value.indexOf(selectedPokemon) + 1;
+  let cheatValueSpecies = names.value.indexOf(selectedPokemon) + 1;
 
   //Wild Encounters are determined by two memory addresses - wTempEnemyMonSpecies & wWildMonForm
   //wTempEnemyMonSpecies:
@@ -272,7 +264,7 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
       >
         <Select
           v-model="selectedPokemon"
-          :options="getNameList()"
+          :options="names"
           filter
           placeholder="Select a Pokemon"
         />
