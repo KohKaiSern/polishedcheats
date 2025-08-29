@@ -8,6 +8,7 @@ import { getItems } from "./getItems.js";
 import { getNames } from "./getNames.js";
 import { getMoves } from "./getMoves.js";
 import { getVersion } from "./getVersion.js";
+import { getGrowthRateCoefficients } from "./getGrowthRate.js";
 
 //Middleware
 //CORS
@@ -36,6 +37,11 @@ app.get("/api/names", (req, res) => {
 //Moves Route
 app.get("/api/moves", (req, res) => {
   res.send(getMoves());
+});
+
+//Growth Rates Route
+app.get("/api/growthrates", (req, res) => {
+  res.send(getGrowthRateCoefficients());
 });
 
 // Start the Server
