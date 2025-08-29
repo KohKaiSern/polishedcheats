@@ -21,8 +21,12 @@ const fetchAddresses = async () => {
   let responseAddresses = await fetch(
     "https://polishedcheats-backend.vercel.app/api/addresses"
   );
-  let responseCoefficients = await fetch("https://polishedcheats-backend.vercel.app/api/growthrates")
-  let responseNames = await fetch("https://polishedcheats-backend.vercel.app/api/names")
+  let responseCoefficients = await fetch(
+    "https://polishedcheats-backend.vercel.app/api/growthrates"
+  );
+  let responseNames = await fetch(
+    "https://polishedcheats-backend.vercel.app/api/names"
+  );
   addresses.value = await responseAddresses.json();
   growthRates.value = await responseCoefficients.json();
   names.value = await responseNames.json();
@@ -40,8 +44,10 @@ const getNameList = () => {
 };
 
 //Implements clipboard when a code exists
-watch(addresses, () => {
-  const clipboard = useClipboard(getLevelCode(selectedLevel.value));
+watch(selectedPokemon, () => {
+  const clipboard = useClipboard(
+    getLevelCode(selectedPokemon.value, selectedLevel.value)
+  );
   copy.value = clipboard.copy;
   copied.value = clipboard.copied;
 });
@@ -49,7 +55,10 @@ watch(addresses, () => {
 //Code generator
 const getLevelCode = (selectedPokemon, selectedLevel) => {
   //Retrieve the right address
-  let addressList = [addresses.value["wPartyMon1Level"], addressExtend(addresses.value["wPartyMon1Exp"], 3)]
+  let addressList = [
+    addresses.value["wPartyMon1Level"],
+    addressExtend(addresses.value["wPartyMon1Exp"], 3),
+  ];
 
   //Level is determined by two addresses - wPartyMon1Level & wPartyMon1Exp
   //IF THESE TWO DON'T MATCH, THE SAVE WILL GO HAYWIRE
@@ -58,31 +67,49 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
   let growthRate = "";
   names.value.forEach((name) => {
     if (name.hasOwnProperty(selectedPokemon)) {
-        growthRate = name[selectedPokemon]
+      growthRate = name[selectedPokemon];
     }
-  })
+  });
 
   //Get coefficients
-  let coefficients = growthRates.value[growthRate]
+  let coefficients = growthRates.value[growthRate];
 
   //Calculate exp at level
   //Formula:
   //(a/b)*n**3 + c*n**2 + d*n - e
 
-  let exp = ((coefficients[0]/coefficients[1])*selectedLevel**3 + coefficients[2]*selectedLevel - coefficients[3]).toString(16);
+  let exp = (
+    (coefficients[0] / coefficients[1]) * selectedLevel ** 3 +
+    coefficients[2] * selectedLevel -
+    coefficients[3]
+  ).toString(16);
   exp = "0".repeat(6 - exp.length) + exp;
   selectedLevel = selectedLevel.toString(16);
   selectedLevel = "0".repeat(2 - selectedLevel.length) + selectedLevel;
-  return ("01" + selectedLevel + addressList[0] + " 01" + exp.slice(0, 2) + addressList[1][0] + " 01" + exp.slice(2, 4) + addressList[1][1] + " 01" + exp.slice(4) + addressList[1][2]).toUpperCase();
+  return (
+    "01" +
+    selectedLevel +
+    addressList[0] +
+    " 01" +
+    exp.slice(0, 2) +
+    addressList[1][0] +
+    " 01" +
+    exp.slice(2, 4) +
+    addressList[1][1] +
+    " 01" +
+    exp.slice(4) +
+    addressList[1][2]
+  ).toUpperCase();
 };
 </script>
 
 <template>
-  <Card v-if="addresses">
+  <Card v-if="addresses && names && growthRates">
     <template #title>
       <div class="flex flex-wrap justify-between gap-5">
-        <span>Money</span>
+        <span>Level</span>
         <Button
+          v-if="selectedPokemon"
           @click="copy(getLevelCode(selectedPokemon, selectedLevel))"
           :label="copied.value ? 'Copied!' : 'Copy'"
           icon="pi pi-copy"
@@ -93,7 +120,7 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
     <template #content>
       <IftaLabel>
         <InputNumber
-          class="mt-2 mb-5"
+          class="mt-2 mb-2"
           v-model="selectedLevel"
           inputId="level"
           showButtons
@@ -103,21 +130,24 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
         />
         <label class="mt-2" for="level">Level</label>
       </IftaLabel>
-      <br>
       <Select
-          v-model="selectedPokemon"
-          :options="getNameList()"
-          filter
-          placeholder="Select a Pokemon"
+        class="mb-5"
+        v-model="selectedPokemon"
+        :options="getNameList()"
+        filter
+        placeholder="Select a Pokemon"
       />
-      <p class="mb-5">
-        Your code for a Level {{ selectedLevel }} Pokemon is: {{ getLevelCode(selectedPokemon, selectedLevel) }}
+      <p v-if="selectedPokemon" class="mb-5">
+        Your code for a Level {{ selectedLevel }} {{ selectedPokemon }} is:
+        {{ getLevelCode(selectedPokemon, selectedLevel) }}
       </p>
+      <p v-else>Please select a Pokemon and a level.</p>
       <p>
         This code modifies the level of the first Pokemon in your party.
         <br />
-        This code is intended for Nuzlocke players, to avoid overleveling their Pokemon.
-        <br>
+        This code is intended for Nuzlocke players, to avoid overleveling their
+        Pokemon.
+        <br />
         Should you wish to change the levels of the other Pokemon in your party,
         simply swap the party order to place them first.
       </p>
