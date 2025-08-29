@@ -11,7 +11,6 @@ const addresses = ref(null);
 const names = ref(null);
 const selectedPokemon = ref(null);
 const selectedForm = ref(null);
-const selectedGender = ref(null);
 
 //TODO: Auto-generate forms
 const forms = {
@@ -137,17 +136,15 @@ watch(selectedPokemon, () => {
 });
 
 //Implements clipboard when a code exists
-watch([selectedPokemon, selectedGender, selectedForm], () => {
+watch([selectedPokemon, selectedForm], () => {
   if (
-    selectedGender.value &&
     selectedPokemon.value &&
     (selectedForm.value || !forms.hasOwnProperty(selectedPokemon.value))
   ) {
     const clipboard = useClipboard(
       getPokemonCode(
         selectedPokemon.value,
-        selectedForm.value,
-        selectedGender.value
+        selectedForm.value
       )
     );
     copy.value = clipboard.copy;
@@ -156,7 +153,7 @@ watch([selectedPokemon, selectedGender, selectedForm], () => {
 });
 
 //Code generator
-const getPokemonCode = (selectedPokemon, selectedForm, selectedGender) => {
+const getPokemonCode = (selectedPokemon, selectedForm) => {
   //Retrieve the right addresses: wTempEnemyMonSpecies, wWildMonForm
   let addressList = [
     addresses.value["wTempEnemyMonSpecies"],
@@ -186,7 +183,7 @@ const getPokemonCode = (selectedPokemon, selectedForm, selectedGender) => {
   //B. Red Gyarados
   //15 - Red Gyarados
 
-  let genderValue = selectedGender === "Male" ? "0" : "1"; //Gender
+  let genderValue = "0" //For some reason, toggling this doesn't guarantee M/F
   let isEggValue = "0"; //isEgg
   let speciesExtValue = "0"; //9th Bit
   let formValue = 1; //Form
@@ -249,12 +246,11 @@ const getPokemonCode = (selectedPokemon, selectedForm, selectedGender) => {
         <span>Wild Pokemon</span>
         <Button
           v-if="
-            selectedGender &&
             selectedPokemon &&
             (selectedForm || !forms.hasOwnProperty(selectedPokemon))
           "
           @click="
-            copy(getPokemonCode(selectedPokemon, selectedForm, selectedGender))
+            copy(getPokemonCode(selectedPokemon, selectedForm))
           "
           :label="copied.value ? 'Copied!' : 'Copy'"
           icon="pi pi-copy"
@@ -280,29 +276,22 @@ const getPokemonCode = (selectedPokemon, selectedForm, selectedGender) => {
           placeholder="Select a Form"
         />
         <Select v-else disabled placeholder="No form available" />
-        <Select
-          v-model="selectedGender"
-          :options="['Male', 'Female']"
-          placeholder="Select a Gender"
-        />
       </div>
       <p
         class="mb-5"
         v-if="
-          selectedGender &&
           selectedPokemon &&
           (selectedForm || !forms.hasOwnProperty(selectedPokemon))
         "
       >
         Your code for {{ selectedPokemon }} is:
-        {{ getPokemonCode(selectedPokemon, selectedForm, selectedGender) }}
+        {{ getPokemonCode(selectedPokemon, selectedForm) }}
       </p>
       <p class="mb-5" v-else>
-        Please choose a Pokemon species, form and gender.
+        Please choose a Pokemon species and form.
       </p>
       <p>
         This code forces all Wild Encounters to be of the chosen Pokemon.<br />
-        If the Pokemon is genderless, either option for gender will work. <br />
         Note that this cheat causes a mild visual glitch in the battle
         animation. <br />
         This is temporary and expected.
