@@ -81,7 +81,7 @@ const getEVCode = (selectedEVs) => {
             inputId="hp"
             showButtons
             :min="0"
-            :max="255"
+            :max="252"
             fluid
           />
           <label for="hp">HP</label>
@@ -92,7 +92,7 @@ const getEVCode = (selectedEVs) => {
             inputId="atk"
             showButtons
             :min="0"
-            :max="255"
+            :max="252"
             fluid
           />
           <label for="atk">Attack</label>
@@ -103,7 +103,7 @@ const getEVCode = (selectedEVs) => {
             inputId="def"
             showButtons
             :min="0"
-            :max="255"
+            :max="252"
             fluid
           />
           <label for="def">Defense</label>
@@ -114,7 +114,7 @@ const getEVCode = (selectedEVs) => {
             inputId="spe"
             showButtons
             :min="0"
-            :max="255"
+            :max="252"
             fluid
           />
           <label for="spe">Speed</label>
@@ -125,7 +125,7 @@ const getEVCode = (selectedEVs) => {
             inputId="sat"
             showButtons
             :min="0"
-            :max="255"
+            :max="252"
             fluid
           />
           <label for="sat">Special Attack</label>
@@ -136,7 +136,7 @@ const getEVCode = (selectedEVs) => {
             inputId="sdf"
             showButtons
             :min="0"
-            :max="255"
+            :max="252"
             fluid
           />
           <label for="sdf">Special Defense</label>
