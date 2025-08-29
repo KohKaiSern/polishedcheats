@@ -76,7 +76,7 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
 
   //Calculate exp at level
   //Formula:
-  //(a/b)*n**3 + c*n**2 + d*n - e
+  //floor[(a/b)*n**3 + c*n**2 + d*n - e]
 
   let exp = Math.floor(
     (coefficients[0] / coefficients[1]) * selectedLevel ** 3 +
