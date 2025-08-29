@@ -14,6 +14,7 @@ import TMsHMs from "./components/TMsHMs.vue";
 import Gender from "./components/Gender.vue";
 import Coins from "./components/Coins.vue";
 import Status from "./components/Status.vue";
+import Level from "./components/Level.vue";
 import CALC_NATURES from "./components/CALC_NATURES.vue";
 
 const version = ref(null);
@@ -31,6 +32,7 @@ const cheats = [
   "Gender Modifier",
   "Coins Modifier",
   "Status Modifier",
+  "Level Modifier"
 ];
 
 //GET version from API
@@ -109,6 +111,7 @@ onMounted(() => {
       <Gender class="w-full" v-if="selectedCheat === 'Gender Modifier'" />
       <Coins class="w-full" v-if="selectedCheat === 'Coins Modifier'" />
       <Status class="w-full" v-if="selectedCheat === 'Status Modifier'" />
+      <Level class="w-full" v-if="selectedCheat === 'Level Modifier'" />
     </div>
   </div>
 </template>

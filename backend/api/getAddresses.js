@@ -31,6 +31,8 @@ const SYMBOLS = [
   "wEnemyMonCatchRate",
   "wCoins",
   "wPartyMon1Status",
+  "wPartyMon1Level",
+  "wPartyMon1Exp"
 ];
 
 //Read addresses from .sym file
