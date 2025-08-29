@@ -131,6 +131,13 @@ onMounted(() => {
   fetchNames();
 });
 
+//Parse items into an array of [items] for Select to loop over
+const getNameList = () => {
+  return names.value.map((name) => {
+    return Object.keys(name)[0];
+  });
+};
+
 //Resets selectedForm when selectedPokemon changes
 watch(selectedPokemon, () => {
   selectedForm.value = null;
@@ -176,7 +183,7 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
   let formValue = 1;
 
   //Handling for 256+ Pokemon
-  if (names.value.indexOf(selectedPokemon) > 254) {
+  if (getNameList().indexOf(selectedPokemon) > 254) {
     speciesExtValue = "1";
   }
 
@@ -238,7 +245,7 @@ const getGenderCode = (selectedGender, selectedPokemon, selectedForm) => {
       >
         <Select
           v-model="selectedPokemon"
-          :options="names"
+          :options="getNameList()"
           filter
           placeholder="Select a Pokemon"
         />
