@@ -17,8 +17,8 @@ const specialMonNames = {
 };
 
 export const getNames = () => {
-  //Obtain the raw file data
-  const data = fs.readFileSync(
+  //Obtain the name data
+  const nameData = fs.readFileSync(
     path.join(
       __dirname,
       "..",
@@ -32,7 +32,7 @@ export const getNames = () => {
 
   //Get all names
   let names = [];
-  data.split(`\n`).forEach((line) => {
+  nameData.split(`\n`).forEach((line) => {
     if (line.trim().startsWith("const ")) {
       line = line.trim().slice(6, -5).trim();
       //Capitalization
@@ -44,5 +44,80 @@ export const getNames = () => {
       names.push(line);
     }
   });
-  return names;
+
+  //Obtain the growth rate data
+  //By reading through the entire base_stats directory
+  let growthRates = [];
+  let filenames = fs.readdirSync(
+    path.join(
+      __dirname,
+      "..",
+      "public",
+      "polishedcrystal",
+      "data",
+      "pokemon",
+      "base_stats"
+    )
+  );
+  filenames.forEach((filename) => {
+    //Discard Regional Forms (growth rate unchanged between forms)
+    if (
+      ["alolan", "galarian", "hisuian", "paldean", "bloodmoon", "armored"].some(
+        (form) => filename.includes(form)
+      )
+    ) {
+      return;
+    }
+    let content = fs.readFileSync(
+      path.join(
+        __dirname,
+        "..",
+        "public",
+        "polishedcrystal",
+        "data",
+        "pokemon",
+        "base_stats",
+        filename
+      ),
+      "utf-8"
+    );
+
+    //Find the Growth Rate
+    let growthRate = "";
+    for (
+      let i = content.indexOf("GROWTH_") + 7;
+      i < content.indexOf("GROWTH_") + 20;
+      i++
+    ) {
+      if (content[i] === " ") {
+        break;
+      } else {
+        growthRate += content[i];
+      }
+    }
+
+    //Return an object of structure { monName : growthRate }
+    //Format monName in the same way as names
+    let name = filename.slice(0, -4);
+    if (name.includes("_plain")) {
+      name = name.slice(0, -6);
+    }
+    name = name[0].toUpperCase() + name.slice(1);
+    if (specialMonNames.hasOwnProperty(name)) {
+      name = specialMonNames[name];
+    }
+    growthRates.push({ [name]: growthRate });
+  });
+
+  //Sort the names
+  let data = [];
+  names.forEach((name) => {
+    growthRates.forEach((growthRate) => {
+      if (growthRate.hasOwnProperty(name)) {
+        data.push(growthRate)
+        return;
+      }
+    })
+  })
+  return data;
 };
