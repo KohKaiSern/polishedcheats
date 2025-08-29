@@ -14,6 +14,7 @@
   "dependencies": {
     "@primeuix/themes": "^1.2.3",
     "@tailwindcss/vite": "^4.1.12",
+    "@vercel/analytics": "^1.5.0",
     "@vueuse/core": "^13.7.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.7",

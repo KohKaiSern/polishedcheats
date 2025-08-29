@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { inject } from "@vercel/analytics"
 import Select from "primevue/select";
 import Divider from "primevue/divider";
 import Items from "./components/Items.vue";
@@ -45,6 +46,7 @@ const fetchVersion = async () => {
 
 onMounted(() => {
   fetchVersion();
+  inject();
 });
 </script>
 
