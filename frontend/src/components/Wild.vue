@@ -91,7 +91,7 @@ const forms = {
   Voltorb: ["Plain", "Hisuian"],
   Electrode: ["Plain", "Hisuian"],
   Vulpix: ["Plain", "Alolan"],
-  Ninetails: ["Plain", "Alolan"],
+  Ninetales: ["Plain", "Alolan"],
   Growlithe: ["Plain", "Hisuian"],
   Arcanine: ["Plain", "Hisuian"],
   Diglett: ["Plain", "Alolan"],
