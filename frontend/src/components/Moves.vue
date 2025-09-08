@@ -53,16 +53,16 @@ const getMoveCode = (selectedMoves) => {
   });
 
   return (
-    "01" +
+    "91" +
     cheatValues[0] +
     addressList[0] +
-    " 01" +
+    " 91" +
     cheatValues[1] +
     addressList[1] +
-    " 01" +
+    " 91" +
     cheatValues[2] +
     addressList[2] +
-    " 01" +
+    " 91" +
     cheatValues[3] +
     addressList[3]
   ).toUpperCase();

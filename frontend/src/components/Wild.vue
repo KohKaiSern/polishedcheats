@@ -233,10 +233,10 @@ const getPokemonCode = (selectedPokemon, selectedForm) => {
   cheatValueForm = "0".repeat(2 - cheatValueForm.length) + cheatValueForm;
 
   return (
-    "01" +
+    "91" +
     cheatValueSpecies +
     addressList[0] +
-    " 01" +
+    " 91" +
     cheatValueForm +
     addressList[1]
   ).toUpperCase();

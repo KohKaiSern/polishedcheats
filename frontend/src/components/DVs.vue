@@ -76,15 +76,15 @@ const getDVCode = (selectedDVs) => {
   selectedDVs = selectedDVs.map((dv) => dv.toString(16));
 
   return (
-    "01" +
+    "91" +
     selectedDVs[0] +
     selectedDVs[1] +
     addressList[0] +
-    " 01" +
+    " 91" +
     selectedDVs[2] +
     selectedDVs[3] +
     addressList[1] +
-    " 01" +
+    " 91" +
     selectedDVs[4] +
     selectedDVs[5] +
     addressList[2]

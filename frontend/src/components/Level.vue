@@ -91,16 +91,16 @@ const getLevelCode = (selectedPokemon, selectedLevel) => {
 
   //Put it all together
   return (
-    "01" +
+    "91" +
     selectedLevel +
     addressList[0] +
-    " 01" +
+    " 91" +
     exp.slice(0, 2) +
     addressList[1][0] +
-    " 01" +
+    " 91" +
     exp.slice(2, 4) +
     addressList[1][1] +
-    " 01" +
+    " 91" +
     exp.slice(4) +
     addressList[1][2]
   ).toUpperCase();

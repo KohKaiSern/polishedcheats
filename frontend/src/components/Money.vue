@@ -40,13 +40,13 @@ const getMoneyCode = (selectedMoney) => {
   let cheatValue = selectedMoney.toString(16);
   cheatValue = "0".repeat(6 - cheatValue.length) + cheatValue;
   return (
-    "01" +
+    "91" +
     cheatValue.slice(0, 2) +
     addressList[0] +
-    " 01" +
+    " 91" +
     cheatValue.slice(2, 4) +
     addressList[1] +
-    " 01" +
+    " 91" +
     cheatValue.slice(4) +
     addressList[2]
   ).toUpperCase();

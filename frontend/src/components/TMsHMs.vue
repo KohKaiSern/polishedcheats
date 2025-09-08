@@ -40,7 +40,7 @@ const getTMCode = () => {
 
   let cheatValue = "";
   addressList.slice(0, -1).forEach((address) => {
-    cheatValue += " 01FF" + address;
+    cheatValue += " 91FF" + address;
   });
 
   return (cheatValue.slice(1) + " 0101" + addressList[10]).toUpperCase();

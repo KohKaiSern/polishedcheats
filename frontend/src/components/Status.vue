@@ -63,7 +63,7 @@ const getStatusCode = (selectedStatus) => {
   cheatValue = parseInt(cheatValue, 2).toString(16);
   cheatValue = "0".repeat(2 - cheatValue.length) + cheatValue;
 
-  return ("01" + cheatValue + address).toUpperCase();
+  return ("91" + cheatValue + address).toUpperCase();
 };
 </script>
 

@@ -36,7 +36,7 @@ const getHappinessCode = (selectedHappiness) => {
   let address = addresses.value["wPartyMon1Happiness"];
   let cheatValue = selectedHappiness.toString(16);
   cheatValue = "0".repeat(2 - cheatValue.length) + cheatValue;
-  return ("01" + cheatValue + address).toUpperCase();
+  return ("91" + cheatValue + address).toUpperCase();
 };
 </script>
 

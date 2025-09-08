@@ -51,7 +51,7 @@ const getEVCode = (selectedEVs) => {
   //Generate cheat code
   let cheat = "";
   for (let i = 0; i < 6; i++) {
-    cheat += " 01" + selectedEVs[i] + addressList[i];
+    cheat += " 91" + selectedEVs[i] + addressList[i];
   }
   //Slice off the first empty space
   return cheat.slice(1).toUpperCase();

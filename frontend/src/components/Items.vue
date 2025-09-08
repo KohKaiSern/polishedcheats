@@ -71,10 +71,10 @@ const getItemCode = (selectedItem) => {
   cheatValue = "0".repeat(2 - cheatValue.length) + cheatValue;
 
   return (
-    "01" +
+    "91" +
     cheatValue +
     addressList[0] +
-    " 0163" +
+    " 9163" +
     addressList[1]
   ).toUpperCase();
 };
