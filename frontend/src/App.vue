@@ -55,6 +55,9 @@ onMounted(() => {
     <h1 class="text-3xl font-bold mt-5 mb-3">Polished Cheats v{{ version }}</h1>
 
     <p>
+      UPDATE: Unless you are interested in the technical aspects of GameShark cheats,
+      I would highly recommend you use <a src='https://polishededitor.vercel.app'>Polished Editor</a>, my new graphical save editor for
+      Polished Crystal. It is easier to use, safer and works on more emulators. <br>
       This website provides GameShark cheat codes for Polished Crystal by
       scraping .sym and .asm files. This allows cheat codes to be up-to-date and
       customizable.
