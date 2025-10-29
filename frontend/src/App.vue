@@ -56,7 +56,7 @@ onMounted(() => {
 
     <p class='mb-15'>
       UPDATE: With Polished Editor stable on the current version, Polished Cheats will be made non-functional.<br>
-      Please use my save editor, <a href='https://polishededitor.vercel.app'>Polished Editor</a> instead.<br>
+      Please use my save editor, <a class='text-blue-500' href='https://polishededitor.vercel.app'>Polished Editor</a> instead.<br>
       This was done as the save editor provides more features, allows for more efficient editing and most importantly,<br>
       is a lot safer than using GameShark codes, which can be easily misused, or fail on some emulators. <br>
       In the future, if Polished Editor takes some time to update, Polished Cheats will be temporarily reinstated<br>
