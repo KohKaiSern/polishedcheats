@@ -53,17 +53,6 @@ onMounted(() => {
 <template>
   <div class="ml-5 mr-5">
     <h1 class="text-3xl font-bold mt-5 mb-3">Polished Cheats v{{ version }}</h1>
-
-    <p class='mb-15'>
-      UPDATE: With Polished Editor stable on the current version, Polished Cheats will be made non-functional.<br>
-      Please use my save editor, <a class='text-blue-500' href='https://polishededitor.vercel.app'>Polished Editor</a> instead.<br>
-      This was done as the save editor provides more features, allows for more efficient editing and most importantly,<br>
-      is a lot safer than using GameShark codes, which can be easily misused, or fail on some emulators. <br>
-      In the future, if Polished Editor takes some time to update, Polished Cheats will be temporarily reinstated<br>
-      in order to provide basic cheats while I update Polished Editor.<br>
-      Thank you for using and supporting Polished Cheats. I hope that Polished Editor serves your needs even better!
-    </p>
-
     <div class="mt-3 mb-3 text-gray-600">
       <p>Before using this website, read the following:</p>
       <ul class="list-inside list-disc">
@@ -94,7 +83,6 @@ onMounted(() => {
     ><br /><br />
 
     <Select
-      disabled
       class="mb-3"
       v-model="selectedCheat"
       :options="cheats"
