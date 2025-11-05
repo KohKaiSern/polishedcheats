@@ -39,7 +39,7 @@ const SYMBOLS = [
 export const getAddresses = () => {
   //Obtain the raw file data
   const data = fs.readFileSync(
-    path.join(__dirname, "..", "public", "polishedcrystal-3.2.0.sym"),
+    path.join(__dirname, "..", "public", "polishedcrystal-3.2.1.sym"),
     "utf8"
   );
 
